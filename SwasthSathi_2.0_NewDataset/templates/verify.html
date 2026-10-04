@@ -1,0 +1,6 @@
+
+{% extends "base.html" %}{% block title %}Verify · SwasthSathi{% endblock %}{% block content %}
+<div class="auth"><div class="auth-card"><div style="text-align:center"><div class="logo" style="margin:auto">✓</div><h1>Verify OTP</h1><p class="muted">Enter the 6-digit code to continue.</p></div>
+<form method="post"><div class="field"><input name="otp" inputmode="numeric" maxlength="6" placeholder="123456" required></div><button class="btn btn-primary" style="width:100%">Verify & Continue</button></form>
+<a href="{{ url_for('login') }}" class="btn btn-soft" style="width:100%;margin-top:10px">Back</a></div></div>
+{% endblock %}

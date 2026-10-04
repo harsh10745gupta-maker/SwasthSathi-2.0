@@ -1,0 +1,2942 @@
+{% extends "base.html" %}
+
+{% block title %}SwasthSathi 2.0{% endblock %}
+
+{% block content %}
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+<section class="hero">
+
+    <div class="hero-inner">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                ✦ AI-assisted health screening
+            </span>
+
+            <h1>
+                Understand your symptoms with a
+                <span>smarter digital experience.</span>
+            </h1>
+
+            <p>
+                SwasthSathi combines symptom screening,
+                machine-learning analysis, clear explanations
+                and personal assessment history in one simple interface.
+            </p>
+
+            <div class="landing-actions">
+
+                <a href="{{ url_for('login') }}" class="btn btn-primary">
+                    🩺 Start Assessment
+                    <span>→</span>
+                </a>
+
+                <a href="{{ url_for('login') }}" class="btn btn-soft landing-login-btn">
+                    Sign In
+                </a>
+
+            </div>
+
+            <div class="landing-trust">
+
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Simple &amp; Secure</span>
+                </div>
+
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>AI Powered</span>
+                </div>
+
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Assessment History</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="scan">
+
+                <div class="scan-ring"></div>
+
+                <div class="scan-heart">
+                    ❤
+                </div>
+
+            </div>
+
+            <div class="hero-card-info">
+
+                <strong>
+                    Smart Analysis
+                </strong>
+
+                <div>
+                    Symptoms → Profile → ML analysis → Result
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HEALTH TOOLS
+========================= -->
+<section class="section health-tools-section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span class="health-tools-badge">
+                HEALTH TOOLS
+            </span>
+
+            <h2>
+                Quick Health Check
+            </h2>
+
+            <p>
+                Use simple tools to understand and monitor basic health measurements.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             BMI CALCULATOR
+        ========================= -->
+        <div class="health-tool-card">
+
+            <div class="health-tool-icon">
+                🧮
+            </div>
+
+            <div class="health-tool-content">
+
+                <div class="health-tool-heading">
+
+                    <div>
+                        <h2>BMI Calculator</h2>
+
+                        <p class="muted">
+                            Calculate your Body Mass Index using height and weight.
+                        </p>
+                    </div>
+
+                    <span class="tool-status">
+                        Quick Check
+                    </span>
+
+                </div>
+
+                <div class="bmi-input-grid">
+
+                    <div class="field">
+
+                        <label for="bmi-height">
+                            Height (cm)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="bmi-height"
+                            min="50"
+                            max="250"
+                            step="0.1"
+                            placeholder="e.g. 170"
+                        >
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="bmi-weight">
+                            Weight (kg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="bmi-weight"
+                            min="10"
+                            max="300"
+                            step="0.1"
+                            placeholder="e.g. 65"
+                        >
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-primary bmi-button"
+                    id="calculate-bmi"
+                >
+                    Calculate BMI
+                    <span>→</span>
+                </button>
+
+
+                <div
+                    id="bmi-result"
+                    class="bmi-result"
+                    style="display:none;"
+                >
+
+                    <div class="bmi-result-top">
+
+                        <div>
+
+                            <span class="bmi-result-label">
+                                Your BMI
+                            </span>
+
+                            <strong id="bmi-value">
+                                --
+                            </strong>
+
+                        </div>
+
+                        <span id="bmi-category" class="bmi-category">
+                            --
+                        </span>
+
+                    </div>
+
+                    <div class="bmi-scale">
+
+                        <div class="bmi-scale-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="bmi-scale-labels">
+
+                            <span>Underweight</span>
+                            <span>Normal</span>
+                            <span>Overweight</span>
+                            <span>Obesity</span>
+
+                        </div>
+
+                    </div>
+
+                    <p id="bmi-message" class="bmi-message"></p>
+
+                </div>
+
+                <div class="health-disclaimer">
+                    ℹ️ BMI is a general screening measurement.
+                    It does not diagnose a disease or replace professional medical advice.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             BLOOD PRESSURE TRACKER
+        ========================= -->
+        <div class="health-tool-card tracker-card">
+
+            <div class="health-tool-icon bp-icon">
+                ❤️
+            </div>
+
+            <div class="health-tool-content">
+
+                <div class="health-tool-heading">
+
+                    <div>
+                        <h2>
+                            Blood Pressure Tracker
+                        </h2>
+
+                        <p class="muted">
+                            Record blood pressure readings and monitor your recent trend.
+                        </p>
+                    </div>
+
+                    <span class="tool-status">
+                        Health Tracker
+                    </span>
+
+                </div>
+
+
+                <div class="bmi-input-grid">
+
+                    <div class="field">
+
+                        <label for="bp-systolic">
+                            Systolic (mmHg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="bp-systolic"
+                            min="50"
+                            max="250"
+                            placeholder="e.g. 120"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="bp-diastolic">
+                            Diastolic (mmHg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="bp-diastolic"
+                            min="30"
+                            max="150"
+                            placeholder="e.g. 80"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field tracker-small-field">
+
+                    <label for="bp-pulse">
+                        Pulse (BPM)
+                        <span>(optional)</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bp-pulse"
+                        min="30"
+                        max="220"
+                        placeholder="e.g. 72"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="save-bp"
+                >
+                    Save BP Reading
+                    <span>→</span>
+                </button>
+
+
+                <!-- CURRENT BP -->
+                <div
+                    id="bp-result"
+                    class="tracker-result"
+                    style="display:none;"
+                >
+
+                    <span class="tracker-result-label">
+                        Current Reading
+                    </span>
+
+                    <div class="tracker-result-row">
+
+                        <strong id="bp-value">
+                            -- / --
+                        </strong>
+
+                        <span id="bp-category" class="tracker-category">
+                            --
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BP CHART -->
+                <div
+                    id="bp-chart-box"
+                    class="chart-box"
+                    style="display:none;"
+                >
+
+                    <div class="chart-heading">
+
+                        <div>
+                            <h3>Blood Pressure Trend</h3>
+
+                            <p class="muted">
+                                Recent saved readings
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="clear-bp-history"
+                            class="clear-btn"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <canvas
+                        id="bp-chart"
+                        height="180"
+                    ></canvas>
+
+                    <div id="bp-history" class="reading-history"></div>
+
+                </div>
+
+
+                <div class="health-disclaimer">
+                    ℹ️ This tracker is for educational monitoring only.
+                    It does not diagnose hypertension or other medical conditions.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             BLOOD SUGAR TRACKER
+        ========================= -->
+        <div class="health-tool-card tracker-card">
+
+            <div class="health-tool-icon sugar-icon">
+                🩸
+            </div>
+
+            <div class="health-tool-content">
+
+                <div class="health-tool-heading">
+
+                    <div>
+                        <h2>
+                            Blood Sugar Tracker
+                        </h2>
+
+                        <p class="muted">
+                            Record glucose readings and view your recent trend.
+                        </p>
+                    </div>
+
+                    <span class="tool-status">
+                        Glucose Tracker
+                    </span>
+
+                </div>
+
+
+                <div class="bmi-input-grid">
+
+                    <div class="field">
+
+                        <label for="sugar-value">
+                            Blood Sugar (mg/dL)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="sugar-value"
+                            min="20"
+                            max="600"
+                            step="1"
+                            placeholder="e.g. 100"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="sugar-type">
+                            Reading Type
+                        </label>
+
+                        <select id="sugar-type">
+
+                            <option value="Fasting">
+                                Fasting
+                            </option>
+
+                            <option value="Post-meal">
+                                Post-meal
+                            </option>
+
+                            <option value="Random">
+                                Random
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="save-sugar"
+                >
+                    Save Sugar Reading
+                    <span>→</span>
+                </button>
+
+
+                <!-- CURRENT SUGAR -->
+                <div
+                    id="sugar-result"
+                    class="tracker-result"
+                    style="display:none;"
+                >
+
+                    <span class="tracker-result-label">
+                        Current Reading
+                    </span>
+
+                    <div class="tracker-result-row">
+
+                        <strong id="sugar-current-value">
+                            --
+                        </strong>
+
+                        <span class="sugar-unit">
+                            mg/dL
+                        </span>
+
+                        <span id="sugar-current-type" class="tracker-category">
+                            --
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUGAR CHART -->
+                <div
+                    id="sugar-chart-box"
+                    class="chart-box"
+                    style="display:none;"
+                >
+
+                    <div class="chart-heading">
+
+                        <div>
+                            <h3>Blood Sugar Trend</h3>
+
+                            <p class="muted">
+                                Recent saved readings
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="clear-sugar-history"
+                            class="clear-btn"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <canvas
+                        id="sugar-chart"
+                        height="180"
+                    ></canvas>
+
+                    <div id="sugar-history" class="reading-history"></div>
+
+                </div>
+
+
+                <div class="health-disclaimer">
+                    ℹ️ Blood glucose values can vary with meals,
+                    medication, activity and other factors.
+                    This tracker is for educational monitoring only.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Built for a modern college project
+            </h2>
+
+            <p>
+                A complete Flask + SQLite + machine-learning
+                prototype with a professional responsive interface.
+            </p>
+
+        </div>
+
+
+        <div class="grid grid-3">
+
+            <div class="card landing-feature">
+
+                <div class="icon">
+                    🤖
+                </div>
+
+                <h3>
+                    ML Prediction
+                </h3>
+
+                <p class="muted">
+                    Random Forest based prediction using
+                    symptoms and basic profile inputs.
+                </p>
+
+            </div>
+
+
+            <div class="card landing-feature">
+
+                <div class="icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Explainable Result
+                </h3>
+
+                <p class="muted">
+                    Top model outputs, symptom summary
+                    and transparent limitations.
+                </p>
+
+            </div>
+
+
+            <div class="card landing-feature">
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3>
+                    Dashboard
+                </h3>
+
+                <p class="muted">
+                    History, statistics and an admin
+                    analytics view for demonstration.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+<section class="section landing-process">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                How SwasthSathi works
+            </h2>
+
+            <p>
+                A simple four-step assessment process.
+            </p>
+
+        </div>
+
+
+        <div class="grid grid-4">
+
+            <div class="card process-card">
+
+                <div class="process-number">
+                    01
+                </div>
+
+                <h3>
+                    Login
+                </h3>
+
+                <p class="muted">
+                    Securely enter the assessment area.
+                </p>
+
+            </div>
+
+
+            <div class="card process-card">
+
+                <div class="process-number">
+                    02
+                </div>
+
+                <h3>
+                    Select Symptoms
+                </h3>
+
+                <p class="muted">
+                    Choose the symptoms you are experiencing.
+                </p>
+
+            </div>
+
+
+            <div class="card process-card">
+
+                <div class="process-number">
+                    03
+                </div>
+
+                <h3>
+                    AI Analysis
+                </h3>
+
+                <p class="muted">
+                    The trained ML model analyses the selected inputs.
+                </p>
+
+            </div>
+
+
+            <div class="card process-card">
+
+                <div class="process-number">
+                    04
+                </div>
+
+                <h3>
+                    View Result
+                </h3>
+
+                <p class="muted">
+                    Review the prediction and assessment information.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     IMPORTANT DISCLAIMER
+========================= -->
+<section class="section" style="padding-top:0">
+
+    <div class="container">
+
+        <div class="card landing-important">
+
+            <h3>
+                Important
+            </h3>
+
+            <p class="muted">
+                This application is an educational screening prototype.
+                It does not diagnose disease and should not be used to
+                make treatment decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LANDING PAGE STYLES
+========================= -->
+<style>
+
+/* =================================
+   HERO
+================================= */
+
+.landing-actions {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:26px;
+    flex-wrap:wrap;
+}
+
+.landing-actions .btn {
+    min-height:48px;
+    padding:13px 20px;
+}
+
+.landing-actions .btn-primary {
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+
+.landing-login-btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.landing-trust {
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-top:22px;
+    flex-wrap:wrap;
+}
+
+.trust-item {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#64748b;
+    font-size:13px;
+    font-weight:600;
+}
+
+.trust-icon {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:rgba(16,185,129,.12);
+    color:#059669;
+    font-size:12px;
+    font-weight:800;
+}
+
+.hero-content,
+.hero-card {
+    position:relative;
+    z-index:2;
+}
+
+.hero-card-info {
+    margin-top:18px;
+}
+
+.hero-card-info strong {
+    display:block;
+}
+
+.hero-card-info div {
+    color:#cde8e5;
+    margin-top:5px;
+}
+
+
+/* =================================
+   HEALTH TOOLS
+================================= */
+
+.health-tools-section {
+    padding-top:55px;
+    padding-bottom:70px;
+}
+
+.health-tools-badge {
+    display:inline-flex;
+    align-items:center;
+    padding:7px 12px;
+    border-radius:999px;
+    background:rgba(37,99,235,.10);
+    color:#2563eb;
+    border:1px solid rgba(37,99,235,.16);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.08em;
+    margin-bottom:12px;
+}
+
+.health-tool-card {
+    display:flex;
+    gap:24px;
+    padding:30px;
+    margin-bottom:24px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:24px;
+    box-shadow:0 18px 45px var(--shadow);
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.health-tool-card:hover {
+    transform:translateY(-4px);
+}
+
+.health-tool-icon {
+    width:62px;
+    height:62px;
+    min-width:62px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:linear-gradient(
+        135deg,
+        rgba(37,99,235,.12),
+        rgba(14,165,233,.08)
+    );
+    font-size:30px;
+}
+
+.bp-icon {
+    background:rgba(239,68,68,.10);
+}
+
+.sugar-icon {
+    background:rgba(245,158,11,.12);
+}
+
+.health-tool-content {
+    flex:1;
+}
+
+.health-tool-heading {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.health-tool-heading h2 {
+    margin-top:0;
+    margin-bottom:6px;
+}
+
+.tool-status {
+    padding:7px 11px;
+    border-radius:999px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    color:var(--text-soft);
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.bmi-input-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+    margin-top:24px;
+    margin-bottom:18px;
+}
+
+.bmi-button {
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+
+
+/* =================================
+   BMI RESULT
+================================= */
+
+.bmi-result {
+    margin-top:24px;
+    padding:22px;
+    border-radius:18px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    animation:bmiResultShow .35s ease;
+}
+
+@keyframes bmiResultShow {
+
+    from {
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.bmi-result-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.bmi-result-label {
+    display:block;
+    color:var(--text-soft);
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+#bmi-value {
+    display:block;
+    font-size:38px;
+    line-height:1;
+}
+
+.bmi-category {
+    padding:9px 14px;
+    border-radius:999px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:13px;
+    font-weight:800;
+}
+
+.bmi-scale {
+    margin-top:25px;
+}
+
+.bmi-scale-bar {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:4px;
+    height:10px;
+}
+
+.bmi-scale-bar span {
+    display:block;
+    border-radius:999px;
+}
+
+.bmi-scale-bar span:nth-child(1) {
+    background:#60a5fa;
+}
+
+.bmi-scale-bar span:nth-child(2) {
+    background:#22c55e;
+}
+
+.bmi-scale-bar span:nth-child(3) {
+    background:#f59e0b;
+}
+
+.bmi-scale-bar span:nth-child(4) {
+    background:#ef4444;
+}
+
+.bmi-scale-labels {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+    margin-top:8px;
+    font-size:10px;
+    color:var(--text-soft);
+}
+
+.bmi-message {
+    margin-top:18px;
+    margin-bottom:0;
+    color:var(--text);
+    font-size:14px;
+}
+
+
+/* =================================
+   BP + SUGAR TRACKERS
+================================= */
+
+.tracker-card {
+    margin-top:0;
+}
+
+.tracker-small-field {
+    max-width:350px;
+    margin-bottom:20px;
+}
+
+.tracker-small-field label span {
+    color:var(--text-soft);
+    font-weight:400;
+}
+
+.tracker-result {
+    margin-top:24px;
+    padding:22px;
+    border-radius:18px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    animation:bmiResultShow .35s ease;
+}
+
+.tracker-result-label {
+    display:block;
+    color:var(--text-soft);
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.tracker-result-row {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.tracker-result-row strong {
+    font-size:32px;
+}
+
+.tracker-category {
+    padding:8px 13px;
+    border-radius:999px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:12px;
+    font-weight:800;
+}
+
+.sugar-unit {
+    color:var(--text-soft);
+    font-size:14px;
+    font-weight:600;
+}
+
+
+/* =================================
+   CHART
+================================= */
+
+.chart-box {
+    margin-top:25px;
+    padding:20px;
+    border-radius:18px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+}
+
+.chart-heading {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.chart-heading h3 {
+    margin:0 0 4px;
+}
+
+.chart-heading p {
+    margin:0;
+    font-size:12px;
+}
+
+.chart-box canvas {
+    width:100%;
+    max-height:220px;
+    display:block;
+}
+
+.clear-btn {
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-soft);
+    border-radius:9px;
+    padding:7px 11px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+}
+
+.clear-btn:hover {
+    background:var(--surface-2);
+}
+
+.reading-history {
+    display:grid;
+    gap:8px;
+    margin-top:18px;
+}
+
+.reading-item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:var(--surface);
+    border:1px solid var(--border);
+}
+
+.reading-main {
+    font-weight:800;
+}
+
+.reading-date {
+    color:var(--text-soft);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.reading-type {
+    color:var(--text-soft);
+    font-size:12px;
+    font-weight:700;
+}
+
+
+/* =================================
+   DISCLAIMER
+================================= */
+
+.health-disclaimer {
+    margin-top:18px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:var(--surface-2);
+    color:var(--text-soft);
+    font-size:12px;
+    line-height:1.6;
+}
+
+
+/* =================================
+   FEATURES
+================================= */
+
+.landing-feature {
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.landing-feature:hover {
+    transform:translateY(-6px);
+}
+
+.landing-process {
+    padding-top:10px;
+}
+
+.process-card {
+    text-align:center;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.process-card:hover {
+    transform:translateY(-5px);
+}
+
+.process-number {
+    width:46px;
+    height:46px;
+    margin:0 auto 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:rgba(14,165,233,.10);
+    color:#0284c7;
+    font-size:13px;
+    font-weight:800;
+}
+
+.landing-important {
+    background:linear-gradient(
+        135deg,
+        #edf8f6,
+        #ffffff
+    );
+}
+
+.landing-important h3 {
+    margin-bottom:8px;
+}
+
+
+/* =================================
+   DARK MODE
+================================= */
+
+html[data-theme="dark"] .health-tools-badge {
+    background:rgba(96,165,250,.12);
+    color:#93c5fd;
+    border-color:rgba(96,165,250,.20);
+}
+
+html[data-theme="dark"] .trust-item {
+    color:#94a3b8;
+}
+
+html[data-theme="dark"] .trust-icon {
+    background:rgba(16,185,129,.15);
+    color:#6ee7b7;
+}
+
+html[data-theme="dark"] .process-number {
+    background:rgba(45,212,191,.12);
+    color:#5eead4;
+}
+
+html[data-theme="dark"] .landing-important {
+    background:linear-gradient(
+        135deg,
+        #102a2a,
+        #111827
+    ) !important;
+
+    border-color:#334155 !important;
+}
+
+html[data-theme="dark"] .landing-important h3 {
+    color:#f8fafc;
+}
+
+html[data-theme="dark"] .landing-trust .trust-item {
+    color:#d1fae5 !important;
+}
+
+html[data-theme="dark"] .landing-trust .trust-icon {
+    background:rgba(52,211,153,.18) !important;
+    color:#6ee7b7 !important;
+}
+
+html[data-theme="dark"] .bp-icon {
+    background:rgba(248,113,113,.12);
+}
+
+html[data-theme="dark"] .sugar-icon {
+    background:rgba(251,191,36,.12);
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width:750px) {
+
+    .landing-actions {
+        width:100%;
+    }
+
+    .landing-actions .btn {
+        width:100%;
+        justify-content:center;
+    }
+
+    .landing-trust {
+        gap:12px;
+    }
+
+    .trust-item {
+        font-size:12px;
+    }
+
+    .health-tool-card {
+        flex-direction:column;
+        padding:22px;
+    }
+
+    .health-tool-heading {
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .bmi-input-grid {
+        grid-template-columns:1fr;
+    }
+
+    .bmi-scale-labels {
+        font-size:8px;
+    }
+
+    .reading-item {
+        align-items:flex-start;
+        flex-direction:column;
+        gap:5px;
+    }
+
+}
+
+
+/* =================================
+   SELECT DARK MODE
+================================= */
+
+html[data-theme="dark"] #sugar-type {
+    background:var(--surface);
+    color:var(--text);
+    border-color:var(--border);
+}
+
+</style>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =================================
+           BMI CALCULATOR
+        ================================= */
+
+        const bmiButton =
+            document.getElementById("calculate-bmi");
+
+
+        if (bmiButton) {
+
+            bmiButton.addEventListener(
+                "click",
+                function () {
+
+                    const height =
+                        parseFloat(
+                            document.getElementById(
+                                "bmi-height"
+                            ).value
+                        );
+
+                    const weight =
+                        parseFloat(
+                            document.getElementById(
+                                "bmi-weight"
+                            ).value
+                        );
+
+
+                    if (
+                        !height ||
+                        !weight ||
+                        height <= 0 ||
+                        weight <= 0
+                    ) {
+
+                        alert(
+                            "Please enter a valid height and weight."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        height < 50 ||
+                        height > 250
+                    ) {
+
+                        alert(
+                            "Please enter a height between 50 cm and 250 cm."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        weight < 10 ||
+                        weight > 300
+                    ) {
+
+                        alert(
+                            "Please enter a weight between 10 kg and 300 kg."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const heightInMeters =
+                        height / 100;
+
+
+                    const bmi =
+                        weight /
+                        (
+                            heightInMeters *
+                            heightInMeters
+                        );
+
+
+                    const roundedBMI =
+                        bmi.toFixed(1);
+
+
+                    let category = "";
+                    let message = "";
+
+
+                    if (bmi < 18.5) {
+
+                        category = "Underweight";
+
+                        message =
+                            "Your BMI is below the usual adult reference range.";
+
+                    }
+
+                    else if (bmi < 25) {
+
+                        category = "Normal";
+
+                        message =
+                            "Your BMI is within the usual adult reference range.";
+
+                    }
+
+                    else if (bmi < 30) {
+
+                        category = "Overweight";
+
+                        message =
+                            "Your BMI is above the usual adult reference range.";
+
+                    }
+
+                    else {
+
+                        category = "Obesity";
+
+                        message =
+                            "Your BMI is in the obesity range.";
+
+                    }
+
+
+                    document.getElementById(
+                        "bmi-value"
+                    ).textContent = roundedBMI;
+
+
+                    document.getElementById(
+                        "bmi-category"
+                    ).textContent = category;
+
+
+                    document.getElementById(
+                        "bmi-message"
+                    ).textContent = message;
+
+
+                    document.getElementById(
+                        "bmi-result"
+                    ).style.display = "block";
+
+                }
+            );
+
+        }
+
+
+        /* =================================
+           BLOOD PRESSURE TRACKER
+        ================================= */
+
+        const saveBP =
+            document.getElementById("save-bp");
+
+        const clearBP =
+            document.getElementById("clear-bp-history");
+
+        const bpChartCanvas =
+            document.getElementById("bp-chart");
+
+
+        function getBPHistory() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "swasthsathi-bp-history"
+                    )
+                ) || [];
+
+            }
+
+            catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        function saveBPHistory(history) {
+
+            localStorage.setItem(
+                "swasthsathi-bp-history",
+                JSON.stringify(history)
+            );
+
+        }
+
+
+        function getBPStatus(
+            systolic,
+            diastolic
+        ) {
+
+            if (
+                systolic < 90 ||
+                diastolic < 60
+            ) {
+
+                return "Low";
+
+            }
+
+            if (
+                systolic >= 180 ||
+                diastolic >= 120
+            ) {
+
+                return "Very High";
+
+            }
+
+            if (
+                systolic >= 140 ||
+                diastolic >= 90
+            ) {
+
+                return "High";
+
+            }
+
+            if (
+                systolic >= 130 ||
+                diastolic >= 80
+            ) {
+
+                return "Elevated";
+
+            }
+
+            return "Typical";
+
+        }
+
+
+        function drawBPChart() {
+
+            const history =
+                getBPHistory();
+
+            const canvas =
+                bpChartCanvas;
+
+            if (!canvas) return;
+
+
+            const box =
+                document.getElementById(
+                    "bp-chart-box"
+                );
+
+
+            if (!history.length) {
+
+                box.style.display = "none";
+
+                return;
+
+            }
+
+
+            box.style.display = "block";
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            const width =
+                canvas.clientWidth ||
+                600;
+
+            const height = 180;
+
+            const dpr =
+                window.devicePixelRatio || 1;
+
+
+            canvas.width =
+                width * dpr;
+
+            canvas.height =
+                height * dpr;
+
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+
+            ctx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            const data =
+                history.slice(-10);
+
+
+            const padding = {
+                left: 40,
+                right: 15,
+                top: 15,
+                bottom: 30
+            };
+
+
+            const chartWidth =
+                width -
+                padding.left -
+                padding.right;
+
+            const chartHeight =
+                height -
+                padding.top -
+                padding.bottom;
+
+
+            const values = [];
+
+            data.forEach(function (item) {
+
+                values.push(
+                    item.systolic,
+                    item.diastolic
+                );
+
+            });
+
+
+            let min =
+                Math.min.apply(
+                    null,
+                    values
+                ) - 10;
+
+            let max =
+                Math.max.apply(
+                    null,
+                    values
+                ) + 10;
+
+
+            if (max - min < 40) {
+
+                const middle =
+                    (max + min) / 2;
+
+                min =
+                    middle - 20;
+
+                max =
+                    middle + 20;
+
+            }
+
+
+            function getX(index) {
+
+                if (data.length === 1) {
+
+                    return padding.left +
+                        chartWidth / 2;
+
+                }
+
+                return padding.left +
+                    (
+                        index /
+                        (data.length - 1)
+                    ) *
+                    chartWidth;
+
+            }
+
+
+            function getY(value) {
+
+                return padding.top +
+                    (
+                        1 -
+                        (
+                            (value - min) /
+                            (max - min)
+                        )
+                    ) *
+                    chartHeight;
+
+            }
+
+
+            /* GRID */
+
+            ctx.strokeStyle =
+                getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue(
+                    "--border"
+                ).trim() || "#d1d5db";
+
+            ctx.lineWidth = 1;
+
+
+            for (
+                let i = 0;
+                i <= 4;
+                i++
+            ) {
+
+                const y =
+                    padding.top +
+                    (
+                        i / 4
+                    ) *
+                    chartHeight;
+
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    padding.left,
+                    y
+                );
+
+                ctx.lineTo(
+                    width - padding.right,
+                    y
+                );
+
+                ctx.stroke();
+
+            }
+
+
+            /* Y LABELS */
+
+            ctx.fillStyle =
+                getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue(
+                    "--text-soft"
+                ).trim() || "#64748b";
+
+            ctx.font = "11px sans-serif";
+
+
+            for (
+                let i = 0;
+                i <= 4;
+                i++
+            ) {
+
+                const value =
+                    max -
+                    (
+                        i / 4
+                    ) *
+                    (max - min);
+
+
+                const y =
+                    padding.top +
+                    (
+                        i / 4
+                    ) *
+                    chartHeight;
+
+
+                ctx.fillText(
+                    Math.round(value),
+                    5,
+                    y + 4
+                );
+
+            }
+
+
+            function drawLine(
+                key,
+                lineColor
+            ) {
+
+                ctx.beginPath();
+
+                data.forEach(
+                    function (
+                        item,
+                        index
+                    ) {
+
+                        const x =
+                            getX(index);
+
+                        const y =
+                            getY(
+                                item[key]
+                            );
+
+
+                        if (
+                            index === 0
+                        ) {
+
+                            ctx.moveTo(
+                                x,
+                                y
+                            );
+
+                        }
+
+                        else {
+
+                            ctx.lineTo(
+                                x,
+                                y
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                ctx.strokeStyle =
+                    lineColor;
+
+                ctx.lineWidth = 2.5;
+
+                ctx.stroke();
+
+
+                data.forEach(
+                    function (
+                        item,
+                        index
+                    ) {
+
+                        const x =
+                            getX(index);
+
+                        const y =
+                            getY(
+                                item[key]
+                            );
+
+
+                        ctx.beginPath();
+
+                        ctx.arc(
+                            x,
+                            y,
+                            4,
+                            0,
+                            Math.PI * 2
+                        );
+
+                        ctx.fillStyle =
+                            lineColor;
+
+                        ctx.fill();
+
+                    }
+                );
+
+            }
+
+
+            drawLine(
+                "systolic",
+                "#ef4444"
+            );
+
+            drawLine(
+                "diastolic",
+                "#3b82f6"
+            );
+
+
+            /* LEGEND */
+
+            ctx.font =
+                "11px sans-serif";
+
+
+            ctx.fillStyle =
+                "#ef4444";
+
+            ctx.fillText(
+                "● Systolic",
+                padding.left,
+                height - 8
+            );
+
+
+            ctx.fillStyle =
+                "#3b82f6";
+
+            ctx.fillText(
+                "● Diastolic",
+                padding.left + 75,
+                height - 8
+            );
+
+        }
+
+
+        function renderBPHistory() {
+
+            const history =
+                getBPHistory();
+
+            const container =
+                document.getElementById(
+                    "bp-history"
+                );
+
+
+            if (!history.length) {
+
+                container.innerHTML = "";
+
+                document.getElementById(
+                    "bp-chart-box"
+                ).style.display = "none";
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                history
+                    .slice()
+                    .reverse()
+                    .map(
+                        function (item) {
+
+                            return `
+                                <div class="reading-item">
+
+                                    <div>
+                                        <div class="reading-main">
+                                            ${item.systolic} / ${item.diastolic} mmHg
+                                        </div>
+
+                                        <div class="reading-date">
+                                            ${item.date}
+                                        </div>
+                                    </div>
+
+                                    <div class="reading-type">
+                                        ${item.category}
+                                    </div>
+
+                                </div>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+
+            drawBPChart();
+
+        }
+
+
+        if (saveBP) {
+
+            saveBP.addEventListener(
+                "click",
+                function () {
+
+                    const systolic =
+                        parseInt(
+                            document.getElementById(
+                                "bp-systolic"
+                            ).value
+                        );
+
+                    const diastolic =
+                        parseInt(
+                            document.getElementById(
+                                "bp-diastolic"
+                            ).value
+                        );
+
+
+                    if (
+                        !systolic ||
+                        !diastolic
+                    ) {
+
+                        alert(
+                            "Please enter systolic and diastolic values."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        systolic < 50 ||
+                        systolic > 250
+                    ) {
+
+                        alert(
+                            "Please enter a valid systolic value."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        diastolic < 30 ||
+                        diastolic > 150
+                    ) {
+
+                        alert(
+                            "Please enter a valid diastolic value."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const category =
+                        getBPStatus(
+                            systolic,
+                            diastolic
+                        );
+
+
+                    document.getElementById(
+                        "bp-value"
+                    ).textContent =
+                        systolic +
+                        " / " +
+                        diastolic;
+
+
+                    document.getElementById(
+                        "bp-category"
+                    ).textContent =
+                        category;
+
+
+                    document.getElementById(
+                        "bp-result"
+                    ).style.display =
+                        "block";
+
+
+                    const now =
+                        new Date();
+
+
+                    const reading = {
+
+                        systolic:
+                            systolic,
+
+                        diastolic:
+                            diastolic,
+
+                        category:
+                            category,
+
+                        date:
+                            now.toLocaleString(
+                                "en-IN",
+                                {
+                                    dateStyle:
+                                        "short",
+
+                                    timeStyle:
+                                        "short"
+                                }
+                            )
+
+                    };
+
+
+                    const history =
+                        getBPHistory();
+
+
+                    history.push(
+                        reading
+                    );
+
+
+                    saveBPHistory(
+                        history.slice(-10)
+                    );
+
+
+                    renderBPHistory();
+
+
+                    document.getElementById(
+                        "bp-systolic"
+                    ).value = "";
+
+                    document.getElementById(
+                        "bp-diastolic"
+                    ).value = "";
+
+                    document.getElementById(
+                        "bp-pulse"
+                    ).value = "";
+
+                }
+            );
+
+        }
+
+
+        if (clearBP) {
+
+            clearBP.addEventListener(
+                "click",
+                function () {
+
+                    localStorage.removeItem(
+                        "swasthsathi-bp-history"
+                    );
+
+                    renderBPHistory();
+
+                }
+            );
+
+        }
+
+
+        renderBPHistory();
+
+
+        /* =================================
+           BLOOD SUGAR TRACKER
+        ================================= */
+
+        const saveSugar =
+            document.getElementById(
+                "save-sugar"
+            );
+
+        const clearSugar =
+            document.getElementById(
+                "clear-sugar-history"
+            );
+
+        const sugarCanvas =
+            document.getElementById(
+                "sugar-chart"
+            );
+
+
+        function getSugarHistory() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "swasthsathi-sugar-history"
+                    )
+                ) || [];
+
+            }
+
+            catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        function saveSugarHistory(
+            history
+        ) {
+
+            localStorage.setItem(
+                "swasthsathi-sugar-history",
+                JSON.stringify(history)
+            );
+
+        }
+
+
+        function drawSugarChart() {
+
+            const history =
+                getSugarHistory();
+
+            const canvas =
+                sugarCanvas;
+
+            if (!canvas) return;
+
+
+            const box =
+                document.getElementById(
+                    "sugar-chart-box"
+                );
+
+
+            if (!history.length) {
+
+                box.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            box.style.display =
+                "block";
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            const width =
+                canvas.clientWidth ||
+                600;
+
+            const height =
+                180;
+
+            const dpr =
+                window.devicePixelRatio ||
+                1;
+
+
+            canvas.width =
+                width * dpr;
+
+            canvas.height =
+                height * dpr;
+
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+
+            ctx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            const data =
+                history.slice(-10);
+
+
+            const padding = {
+                left:45,
+                right:15,
+                top:15,
+                bottom:30
+            };
+
+
+            const chartWidth =
+                width -
+                padding.left -
+                padding.right;
+
+            const chartHeight =
+                height -
+                padding.top -
+                padding.bottom;
+
+
+            const values =
+                data.map(
+                    function(item) {
+                        return item.value;
+                    }
+                );
+
+
+            let min =
+                Math.min.apply(
+                    null,
+                    values
+                ) - 10;
+
+            let max =
+                Math.max.apply(
+                    null,
+                    values
+                ) + 10;
+
+
+            if (
+                max - min < 40
+            ) {
+
+                const middle =
+                    (max + min) / 2;
+
+                min =
+                    middle - 20;
+
+                max =
+                    middle + 20;
+
+            }
+
+
+            function getX(index) {
+
+                if (data.length === 1) {
+
+                    return padding.left +
+                        chartWidth / 2;
+
+                }
+
+                return padding.left +
+                    (
+                        index /
+                        (data.length - 1)
+                    ) *
+                    chartWidth;
+
+            }
+
+
+            function getY(value) {
+
+                return padding.top +
+                    (
+                        1 -
+                        (
+                            (value - min) /
+                            (max - min)
+                        )
+                    ) *
+                    chartHeight;
+
+            }
+
+
+            const styles =
+                getComputedStyle(
+                    document.documentElement
+                );
+
+
+            const border =
+                styles
+                    .getPropertyValue(
+                        "--border"
+                    )
+                    .trim() ||
+                "#d1d5db";
+
+
+            const textSoft =
+                styles
+                    .getPropertyValue(
+                        "--text-soft"
+                    )
+                    .trim() ||
+                "#64748b";
+
+
+            /* GRID */
+
+            ctx.strokeStyle =
+                border;
+
+            ctx.lineWidth = 1;
+
+
+            for (
+                let i = 0;
+                i <= 4;
+                i++
+            ) {
+
+                const y =
+                    padding.top +
+                    (
+                        i / 4
+                    ) *
+                    chartHeight;
+
+
+                ctx.beginPath();
+
+                ctx.moveTo(
+                    padding.left,
+                    y
+                );
+
+                ctx.lineTo(
+                    width - padding.right,
+                    y
+                );
+
+                ctx.stroke();
+
+            }
+
+
+            /* Y AXIS */
+
+            ctx.fillStyle =
+                textSoft;
+
+            ctx.font =
+                "11px sans-serif";
+
+
+            for (
+                let i = 0;
+                i <= 4;
+                i++
+            ) {
+
+                const value =
+                    max -
+                    (
+                        i / 4
+                    ) *
+                    (max - min);
+
+
+                const y =
+                    padding.top +
+                    (
+                        i / 4
+                    ) *
+                    chartHeight;
+
+
+                ctx.fillText(
+                    Math.round(value),
+                    5,
+                    y + 4
+                );
+
+            }
+
+
+            /* LINE */
+
+            ctx.beginPath();
+
+
+            data.forEach(
+                function(
+                    item,
+                    index
+                ) {
+
+                    const x =
+                        getX(index);
+
+                    const y =
+                        getY(
+                            item.value
+                        );
+
+
+                    if (
+                        index === 0
+                    ) {
+
+                        ctx.moveTo(
+                            x,
+                            y
+                        );
+
+                    }
+
+                    else {
+
+                        ctx.lineTo(
+                            x,
+                            y
+                        );
+
+                    }
+
+                }
+            );
+
+
+            ctx.strokeStyle =
+                "#f59e0b";
+
+            ctx.lineWidth =
+                2.5;
+
+            ctx.stroke();
+
+
+            /* POINTS */
+
+            data.forEach(
+                function(
+                    item,
+                    index
+                ) {
+
+                    const x =
+                        getX(index);
+
+                    const y =
+                        getY(
+                            item.value
+                        );
+
+
+                    ctx.beginPath();
+
+                    ctx.arc(
+                        x,
+                        y,
+                        4,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    ctx.fillStyle =
+                        "#f59e0b";
+
+                    ctx.fill();
+
+                }
+            );
+
+
+            ctx.fillStyle =
+                "#f59e0b";
+
+            ctx.font =
+                "11px sans-serif";
+
+            ctx.fillText(
+                "● Blood Sugar",
+                padding.left,
+                height - 8
+            );
+
+        }
+
+
+        function renderSugarHistory() {
+
+            const history =
+                getSugarHistory();
+
+            const container =
+                document.getElementById(
+                    "sugar-history"
+                );
+
+
+            if (!history.length) {
+
+                container.innerHTML = "";
+
+                document.getElementById(
+                    "sugar-chart-box"
+                ).style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                history
+                    .slice()
+                    .reverse()
+                    .map(
+                        function(item) {
+
+                            return `
+                                <div class="reading-item">
+
+                                    <div>
+
+                                        <div class="reading-main">
+                                            ${item.value} mg/dL
+                                        </div>
+
+                                        <div class="reading-date">
+                                            ${item.date}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="reading-type">
+                                        ${item.type}
+                                    </div>
+
+                                </div>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+
+            drawSugarChart();
+
+        }
+
+
+        if (saveSugar) {
+
+            saveSugar.addEventListener(
+                "click",
+                function() {
+
+                    const value =
+                        parseFloat(
+                            document.getElementById(
+                                "sugar-value"
+                            ).value
+                        );
+
+
+                    const type =
+                        document.getElementById(
+                            "sugar-type"
+                        ).value;
+
+
+                    if (
+                        !value ||
+                        value < 20 ||
+                        value > 600
+                    ) {
+
+                        alert(
+                            "Please enter a valid blood sugar value between 20 and 600 mg/dL."
+                        );
+
+                        return;
+
+                    }
+
+
+                    document.getElementById(
+                        "sugar-current-value"
+                    ).textContent =
+                        value;
+
+
+                    document.getElementById(
+                        "sugar-current-type"
+                    ).textContent =
+                        type;
+
+
+                    document.getElementById(
+                        "sugar-result"
+                    ).style.display =
+                        "block";
+
+
+                    const now =
+                        new Date();
+
+
+                    const reading = {
+
+                        value:
+                            value,
+
+                        type:
+                            type,
+
+                        date:
+                            now.toLocaleString(
+                                "en-IN",
+                                {
+                                    dateStyle:
+                                        "short",
+
+                                    timeStyle:
+                                        "short"
+                                }
+                            )
+
+                    };
+
+
+                    const history =
+                        getSugarHistory();
+
+
+                    history.push(
+                        reading
+                    );
+
+
+                    saveSugarHistory(
+                        history.slice(-10)
+                    );
+
+
+                    renderSugarHistory();
+
+
+                    document.getElementById(
+                        "sugar-value"
+                    ).value = "";
+
+                }
+            );
+
+        }
+
+
+        if (clearSugar) {
+
+            clearSugar.addEventListener(
+                "click",
+                function() {
+
+                    localStorage.removeItem(
+                        "swasthsathi-sugar-history"
+                    );
+
+                    renderSugarHistory();
+
+                }
+            );
+
+        }
+
+
+        renderSugarHistory();
+
+
+        /* =================================
+           RESPONSIVE CHART REDRAW
+        ================================= */
+
+        window.addEventListener(
+            "resize",
+            function() {
+
+                drawBPChart();
+
+                drawSugarChart();
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+{% endblock %}

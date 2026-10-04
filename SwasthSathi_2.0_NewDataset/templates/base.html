@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}SwasthSathi{% endblock %}</title>
+
+    <!-- Prevent light-mode flash while loading -->
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("swasthsathi-theme");
+
+            if (savedTheme === "dark") {
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    "dark"
+                );
+            }
+        })();
+    </script>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <style>
+
+        /* ================================
+           THEME VARIABLES
+        ================================= */
+
+        :root {
+            --bg: #f6f9fc;
+            --surface: #ffffff;
+            --surface-2: #f1f5f9;
+            --text: #172033;
+            --text-soft: #64748b;
+            --border: #e2e8f0;
+
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+
+            --nav-bg: rgba(255, 255, 255, 0.88);
+
+            --shadow: rgba(15, 23, 42, 0.08);
+
+            --danger-bg: #fee2e2;
+            --danger-text: #991b1b;
+
+            --warning-bg: #fef3c7;
+            --warning-text: #92400e;
+        }
+
+
+        /* ================================
+           DARK THEME
+        ================================= */
+
+        html[data-theme="dark"] {
+
+            --bg: #0b1120;
+            --surface: #111827;
+            --surface-2: #1e293b;
+
+            --text: #f1f5f9;
+            --text-soft: #94a3b8;
+
+            --border: #334155;
+
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+
+            --nav-bg: rgba(15, 23, 42, 0.92);
+
+            --shadow: rgba(0, 0, 0, 0.35);
+
+            --danger-bg: #451a1a;
+            --danger-text: #fecaca;
+
+            --warning-bg: #422006;
+            --warning-text: #fde68a;
+        }
+
+
+        /* ================================
+           GLOBAL DARK MODE
+        ================================= */
+
+        html,
+        body {
+
+            background-color: var(--bg);
+
+            color: var(--text);
+
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+        }
+
+
+        /* Common elements */
+
+        .card,
+        .panel,
+        .box,
+        .stat-card,
+        .assessment-card,
+        .feature-card,
+        .info-card {
+
+            background-color: var(--surface);
+
+            color: var(--text);
+
+            border-color: var(--border);
+        }
+
+
+        input,
+        textarea,
+        select {
+
+            background-color: var(--surface);
+
+            color: var(--text);
+
+            border-color: var(--border);
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color: var(--text-soft);
+        }
+
+
+        /* ================================
+           NAVIGATION
+        ================================= */
+
+        .nav {
+
+            background: var(--nav-bg) !important;
+
+            border-bottom-color:
+                var(--border) !important;
+        }
+
+
+        .nav a {
+
+            color: var(--text);
+        }
+
+
+        .nav a:hover {
+
+            color: var(--primary);
+        }
+
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .footer {
+
+            color: var(--text-soft);
+
+            border-top-color:
+                var(--border);
+        }
+
+
+        /* ================================
+           FLASH MESSAGES
+        ================================= */
+
+        .alert-danger {
+
+            background: var(--danger-bg);
+
+            color: var(--danger-text);
+        }
+
+
+        .alert-warning {
+
+            background: var(--warning-bg);
+
+            color: var(--warning-text);
+        }
+
+
+        /* ================================
+           DARK MODE BUTTON
+        ================================= */
+
+        .theme-toggle {
+
+            width: 42px;
+
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: var(--surface);
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            font-size: 19px;
+
+            transition:
+                transform 0.2s ease,
+                background 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+
+        .theme-toggle:hover {
+
+            transform: translateY(-2px);
+
+            background: var(--surface-2);
+        }
+
+
+        .theme-toggle:active {
+
+            transform: scale(0.94);
+        }
+
+
+        /* ================================
+           SMOOTH THEME TRANSITION
+        ================================= */
+
+        *,
+        *::before,
+        *::after {
+
+            transition:
+                background-color 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        /* Do not slow animations */
+
+        .theme-toggle,
+        .theme-toggle * {
+
+            transition:
+                transform 0.2s ease,
+                background-color 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        /* ================================
+           MOBILE NAVIGATION
+        ================================= */
+
+        @media (max-width: 768px) {
+
+            .nav-inner {
+
+                gap: 10px;
+            }
+
+
+            .navlinks {
+
+                gap: 8px;
+
+                flex-wrap: wrap;
+            }
+
+
+            .navlinks a {
+
+                font-size: 13px;
+            }
+
+
+            .theme-toggle {
+
+                width: 38px;
+
+                height: 38px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    {% if session.get('user_id') %}
+
+    <!-- ================================
+         NAVIGATION
+    ================================= -->
+
+    <nav class="nav">
+
+        <div class="nav-inner">
+
+
+            <a
+                class="brand"
+                href="{{ url_for('dashboard') }}"
+            >
+
+                <span class="logo">
+                    ✚
+                </span>
+
+                <span>
+                    SwasthSathi
+                </span>
+
+            </a>
+
+
+            <div class="navlinks">
+
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="{{ url_for('assessment') }}"
+                >
+                    Check Symptoms
+                </a>
+
+
+                <a
+                    href="{{ url_for('history') }}"
+                >
+                    History
+                </a>
+
+
+                <a
+                    href="{{ url_for('profile') }}"
+                >
+                    Profile
+                </a>
+
+
+                <!-- DARK MODE BUTTON -->
+
+                <button
+                    type="button"
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Toggle dark mode"
+                    title="Toggle dark mode"
+                >
+                    🌙
+                </button>
+
+
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="btn btn-soft"
+                >
+                    Logout
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    {% endif %}
+
+
+    <!-- ================================
+         FLASH MESSAGES
+    ================================= -->
+
+    {% with messages =
+        get_flashed_messages(
+            with_categories=true
+        )
+    %}
+
+    <div
+        class="container"
+        style="padding-bottom:0"
+    >
+
+        {% for category, message in messages %}
+
+        <div
+            class="
+                alert
+                {% if category == 'danger' %}
+                    alert-danger
+                {% elif category == 'warning' %}
+                    alert-warning
+                {% endif %}
+            "
+        >
+
+            {{ message }}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endwith %}
+
+
+    <!-- ================================
+         PAGE CONTENT
+    ================================= -->
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+
+    <footer class="footer">
+
+        © {{ year }} SwasthSathi
+        · Educational prototype
+        · Not a medical diagnosis
+
+    </footer>
+
+
+    <!-- ================================
+         PAGE-SPECIFIC JAVASCRIPT
+         
+         IMPORTANT:
+         assessment.html uses this block
+         for its Gender dropdown,
+         symptom search, counter, etc.
+    ================================= -->
+
+    {% block scripts %}
+
+    {% endblock %}
+
+
+    <!-- ================================
+         MAIN JAVASCRIPT
+    ================================= -->
+
+    <script
+        src="{{ url_for('static', filename='js/app.js') }}"
+    ></script>
+
+
+    <!-- ================================
+         DARK MODE SCRIPT
+    ================================= -->
+
+    <script>
+
+        const themeToggle =
+            document.getElementById(
+                "themeToggle"
+            );
+
+
+        function updateThemeIcon() {
+
+            if (!themeToggle) {
+
+                return;
+
+            }
+
+
+            const isDark =
+                document.documentElement
+                    .getAttribute(
+                        "data-theme"
+                    ) === "dark";
+
+
+            themeToggle.textContent =
+                isDark
+                    ? "☀️"
+                    : "🌙";
+
+
+            themeToggle.title =
+                isDark
+                    ? "Switch to light mode"
+                    : "Switch to dark mode";
+
+        }
+
+
+        if (themeToggle) {
+
+
+            themeToggle.addEventListener(
+                "click",
+                function () {
+
+
+                    const html =
+                        document.documentElement;
+
+
+                    const isDark =
+                        html.getAttribute(
+                            "data-theme"
+                        ) === "dark";
+
+
+                    if (isDark) {
+
+
+                        html.removeAttribute(
+                            "data-theme"
+                        );
+
+
+                        localStorage.setItem(
+                            "swasthsathi-theme",
+                            "light"
+                        );
+
+
+                    } else {
+
+
+                        html.setAttribute(
+                            "data-theme",
+                            "dark"
+                        );
+
+
+                        localStorage.setItem(
+                            "swasthsathi-theme",
+                            "dark"
+                        );
+
+                    }
+
+
+                    updateThemeIcon();
+
+                }
+            );
+
+
+            updateThemeIcon();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{
+  "dataset": "Disease Prediction Using Machine Learning (Kaggle: kaushil268/disease-prediction-using-machine-learning)",
+  "train_rows": 4920,
+  "unique_training_patterns": 304,
+  "test_rows": 42,
+  "symptom_features": 132,
+  "diseases": 41,
+  "models": {
+    "Decision Tree": {
+      "accuracy": 97.62,
+      "precision_macro": 98.78,
+      "recall_macro": 98.78,
+      "f1_macro": 98.37
+    },
+    "Random Forest": {
+      "accuracy": 97.62,
+      "precision_macro": 98.78,
+      "recall_macro": 98.78,
+      "f1_macro": 98.37
+    },
+    "Naive Bayes": {
+      "accuracy": 100.0,
+      "precision_macro": 100.0,
+      "recall_macro": 100.0,
+      "f1_macro": 100.0
+    }
+  },
+  "final_model": "Random Forest",
+  "feature_note": "All 132 symptom columns are binary indicators. Model feature importance is a statistical model signal, not a causal medical explanation.",
+  "medical_note": "Educational prototype only. Predictions are not a medical diagnosis and must not be used for treatment decisions."
+}

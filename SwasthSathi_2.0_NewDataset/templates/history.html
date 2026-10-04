@@ -1,0 +1,1101 @@
+{% extends "base.html" %}
+
+{% block title %}History · SwasthSathi{% endblock %}
+
+{% block content %}
+
+<div class="container history-page">
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
+
+    <section class="history-header">
+
+        <div>
+
+            <span class="history-kicker">
+                📋 PERSONAL RECORD
+            </span>
+
+            <h1>
+                Assessment History
+            </h1>
+
+            <p>
+                Review your previous educational screening sessions
+                and model predictions.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('assessment') }}"
+            class="btn btn-primary"
+        >
+            + New Assessment
+        </a>
+
+    </section>
+
+
+    <!-- =========================
+         HISTORY CONTENT
+    ========================== -->
+
+    <section class="history-card">
+
+        <div class="history-card-header">
+
+            <div>
+
+                <h2>
+                    Previous assessments
+                </h2>
+
+                <p>
+                    Your saved screening results
+                </p>
+
+            </div>
+
+            {% if records %}
+
+            <div class="history-count">
+                {{ records|length }}
+                <span>
+                    assessment{% if records|length != 1 %}s{% endif %}
+                </span>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        {% if records %}
+
+        <!-- DESKTOP TABLE -->
+
+        <div class="history-table-wrap">
+
+            <table class="history-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Prediction</th>
+                        <th>Model Score</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for a in records %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="history-date">
+
+                                <div class="date-icon">
+                                    📅
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ a.created_at.strftime('%d %b %Y') }}
+                                    </strong>
+
+                                    <span>
+                                        {{ a.created_at.strftime('%I:%M %p') }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="prediction-cell">
+
+                                <div class="prediction-icon">
+                                    🧠
+                                </div>
+
+                                <strong>
+                                    {{ a.prediction }}
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="score-cell">
+
+                                <span class="score-badge">
+                                    {{ '%.1f'|format(a.confidence) }}%
+                                </span>
+
+                                <span class="score-label">
+                                    Model score
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                class="history-view-btn"
+                                href="{{ url_for('result', assessment_id=a.id) }}"
+                            >
+                                View Result
+                                <span>→</span>
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- MOBILE CARDS -->
+
+        <div class="history-mobile">
+
+            {% for a in records %}
+
+            <article class="history-mobile-card">
+
+                <div class="mobile-card-top">
+
+                    <div class="mobile-date">
+
+                        <div class="date-icon">
+                            📅
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                {{ a.created_at.strftime('%d %b %Y') }}
+                            </strong>
+
+                            <span>
+                                {{ a.created_at.strftime('%I:%M %p') }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <span class="score-badge">
+                        {{ '%.1f'|format(a.confidence) }}%
+                    </span>
+
+                </div>
+
+
+                <div class="mobile-prediction">
+
+                    <small>
+                        MODEL PREDICTION
+                    </small>
+
+                    <strong>
+                        {{ a.prediction }}
+                    </strong>
+
+                </div>
+
+
+                <a
+                    href="{{ url_for('result', assessment_id=a.id) }}"
+                    class="history-view-btn mobile-view"
+                >
+                    View Result
+                    <span>→</span>
+                </a>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+        <!-- =========================
+             EMPTY STATE
+        ========================== -->
+
+        <div class="history-empty">
+
+            <div class="empty-history-icon">
+                📋
+            </div>
+
+            <h2>
+                No assessments yet
+            </h2>
+
+            <p>
+                Your completed screening sessions will appear here.
+                Start your first assessment to create a record.
+            </p>
+
+            <a
+                href="{{ url_for('assessment') }}"
+                class="btn btn-primary"
+            >
+                Start Assessment →
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================
+         INFORMATION NOTE
+    ========================== -->
+
+    <div class="history-note">
+
+        <span class="history-note-icon">
+            ℹ️
+        </span>
+
+        <div>
+
+            <strong>
+                About your history
+            </strong>
+
+            <p>
+                These records contain results generated by the
+                SwasthSathi machine-learning prototype. They are
+                provided for educational demonstration purposes and
+                are not medical diagnoses.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     HISTORY PAGE CSS
+========================== -->
+
+<style>
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.history-page {
+    padding-top: 28px;
+    padding-bottom: 60px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.history-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 22px;
+}
+
+.history-kicker {
+    display: inline-flex;
+
+    padding: 6px 11px;
+
+    border-radius: 999px;
+
+    background: rgba(14,165,233,.09);
+
+    color: #0284c7;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: .8px;
+}
+
+.history-header h1 {
+    margin: 12px 0 5px;
+
+    color: #0f172a;
+
+    font-size: clamp(28px, 4vw, 38px);
+
+    line-height: 1.1;
+}
+
+.history-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.history-card {
+    overflow: hidden;
+
+    border-radius: 23px;
+
+    background: var(--card, #ffffff);
+
+    border: 1px solid rgba(15,23,42,.07);
+
+    box-shadow:
+        0 10px 30px rgba(15,23,42,.055);
+
+    animation: historyEnter .6s ease both;
+}
+
+.history-card-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px 27px;
+
+    border-bottom: 1px solid #edf2f5;
+}
+
+.history-card-header h2 {
+    margin: 0 0 4px;
+
+    color: #0f172a;
+
+    font-size: 20px;
+}
+
+.history-card-header p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.history-count {
+    min-width: 55px;
+
+    padding: 8px 12px;
+
+    border-radius: 12px;
+
+    background: #f0fdfa;
+
+    color: #0f766e;
+
+    text-align: center;
+
+    font-weight: 900;
+
+    font-size: 16px;
+}
+
+.history-count span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.history-table-wrap {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.history-table th {
+    padding: 14px 25px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    text-align: left;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: .6px;
+
+    text-transform: uppercase;
+}
+
+.history-table td {
+    padding: 18px 25px;
+
+    border-top: 1px solid #edf2f5;
+
+    vertical-align: middle;
+}
+
+.history-table tbody tr {
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.history-table tbody tr:hover {
+    background: #f8fcfd;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.history-date {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.date-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
+
+    font-size: 17px;
+}
+
+.history-date strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+.history-date span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   PREDICTION
+===================================================== */
+
+.prediction-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.prediction-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #f0fdfa;
+
+    font-size: 16px;
+}
+
+.prediction-cell strong {
+    color: #1e293b;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   SCORE
+===================================================== */
+
+.score-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+.score-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 62px;
+
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    background: rgba(16,185,129,.10);
+
+    color: #059669;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+.score-label {
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.history-view-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 9px 13px;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+
+    color: #0284c7;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.history-view-btn:hover {
+    background: #dbeafe;
+
+    transform: translateX(2px);
+}
+
+.history-view-btn span {
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   MOBILE CARDS
+===================================================== */
+
+.history-mobile {
+    display: none;
+}
+
+.history-mobile-card {
+    padding: 18px;
+
+    border-bottom: 1px solid #edf2f5;
+}
+
+.mobile-card-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.mobile-date {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mobile-date strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 12px;
+}
+
+.mobile-date span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.mobile-prediction {
+    margin-top: 18px;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+.mobile-prediction small {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: .7px;
+}
+
+.mobile-prediction strong {
+    color: #1e293b;
+
+    font-size: 14px;
+}
+
+.mobile-view {
+    width: 100%;
+
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.history-empty {
+    padding: 65px 25px;
+
+    text-align: center;
+}
+
+.empty-history-icon {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
+
+    font-size: 32px;
+
+    animation: emptyFloat 3s ease-in-out infinite;
+}
+
+.history-empty h2 {
+    margin: 0 0 7px;
+
+    color: #334155;
+
+    font-size: 21px;
+}
+
+.history-empty p {
+    max-width: 450px;
+
+    margin: 0 auto 20px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   NOTE
+===================================================== */
+
+.history-note {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+    padding: 17px 19px;
+
+    border-radius: 16px;
+
+    background: #f0fdfa;
+
+    border: 1px solid #ccfbf1;
+
+    color: #0f766e;
+}
+
+.history-note-icon {
+    font-size: 18px;
+}
+
+.history-note strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 12px;
+}
+
+.history-note p {
+    margin: 0;
+
+    color: #5f7f7c;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+html[data-theme="dark"] .history-header h1 {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .history-header p {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .history-kicker {
+    background: rgba(45,212,191,.12);
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .history-card {
+    background: #111827;
+
+    border-color: #334155;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+html[data-theme="dark"] .history-card-header {
+    border-color: #334155;
+}
+
+html[data-theme="dark"] .history-card-header h2 {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .history-card-header p {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .history-count {
+    background: #163b3a;
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .history-count span {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .history-table th {
+    background: #172235;
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .history-table td {
+    border-color: #263449;
+}
+
+html[data-theme="dark"] .history-table tbody tr:hover {
+    background: #172235;
+}
+
+html[data-theme="dark"] .date-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #163b3a
+        );
+}
+
+html[data-theme="dark"] .history-date strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .history-date span {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .prediction-icon {
+    background: #163b3a;
+}
+
+html[data-theme="dark"] .prediction-cell strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .score-badge {
+    background: rgba(16,185,129,.14);
+    color: #6ee7b7;
+}
+
+html[data-theme="dark"] .score-label {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .history-view-btn {
+    background: #172554;
+    color: #7dd3fc;
+}
+
+html[data-theme="dark"] .history-view-btn:hover {
+    background: #1e3a5f;
+}
+
+html[data-theme="dark"] .mobile-prediction {
+    background: #172235;
+}
+
+html[data-theme="dark"] .mobile-prediction strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .mobile-prediction small {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .history-mobile-card {
+    border-color: #334155;
+}
+
+html[data-theme="dark"] .mobile-date strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .mobile-date span {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .empty-history-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #163b3a
+        );
+}
+
+html[data-theme="dark"] .history-empty h2 {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .history-empty p {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .history-note {
+    background: #102a2a;
+    border-color: #24504d;
+}
+
+html[data-theme="dark"] .history-note p {
+    color: #94a3b8;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes historyEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes emptyFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 750px) {
+
+    .history-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .history-header .btn {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .history-table-wrap {
+        display: none;
+    }
+
+    .history-mobile {
+        display: block;
+    }
+
+    .history-card-header {
+        padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .history-page {
+        padding-top: 18px;
+    }
+
+    .history-card {
+        border-radius: 18px;
+    }
+
+    .history-note {
+        padding: 15px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

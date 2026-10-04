@@ -1,0 +1,1114 @@
+{% extends "base.html" %}
+
+{% block title %}Profile · SwasthSathi{% endblock %}
+
+{% block content %}
+
+<div class="container profile-page">
+
+    <!-- Page Header -->
+    <div class="page-head profile-head">
+        <div>
+            <span class="badge">ACCOUNT</span>
+            <h1>Your Profile</h1>
+            <p>Manage your basic SwasthSathi account information.</p>
+        </div>
+
+        <div class="profile-header-icon">
+            👤
+        </div>
+    </div>
+
+
+    <!-- Profile Layout -->
+    <div class="profile-grid">
+
+        <!-- Profile Card -->
+        <div class="card profile-main-card">
+
+            <div class="profile-avatar">
+                {{ user.name[0]|upper if user.name else 'U' }}
+            </div>
+
+            <h2>{{ user.name or 'User' }}</h2>
+            <p class="profile-email">{{ user.email }}</p>
+
+            <div class="profile-status">
+                <span class="status-dot"></span>
+                Account Active
+            </div>
+
+            <div class="profile-divider"></div>
+
+            <div class="profile-info">
+
+                <div class="info-row">
+                    <span class="info-icon">👤</span>
+
+                    <div>
+                        <small>Name</small>
+                        <strong>{{ user.name or 'Not provided' }}</strong>
+                    </div>
+                </div>
+
+
+                <div class="info-row">
+                    <span class="info-icon">✉️</span>
+
+                    <div>
+                        <small>Email</small>
+                        <strong>{{ user.email }}</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Edit Profile Card -->
+        <div class="card profile-edit-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="section-kicker">
+                        PERSONAL INFORMATION
+                    </span>
+
+                    <h2>Edit Profile</h2>
+
+                    <p>
+                        Update your name below.
+                        Your email is linked to your account.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form method="post" class="profile-form">
+
+                <div class="field">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-with-icon">
+
+                        <span>👤</span>
+
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            value="{{ user.name }}"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-with-icon disabled-input">
+
+                        <span>✉️</span>
+
+                        <input
+                            id="email"
+                            type="email"
+                            value="{{ user.email }}"
+                            disabled
+                        >
+
+                    </div>
+
+                    <small class="field-help">
+                        Email cannot be changed from the profile page.
+                    </small>
+
+                </div>
+
+
+                <div class="profile-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Changes ✓
+                    </button>
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="btn btn-soft"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Cards -->
+    <div class="profile-bottom-grid">
+
+
+        <!-- Account & Privacy -->
+        <div class="card account-info-card">
+
+            <div class="account-info-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <h3>
+                    Account & Privacy
+                </h3>
+
+                <p>
+                    Your profile information is used to maintain
+                    your SwasthSathi account and assessment history.
+                    Keep your account information accurate and do not
+                    share your login or OTP details with others.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Admin Access -->
+        <div class="card admin-access-card">
+
+            <div class="admin-access-icon">
+                ⚙️
+            </div>
+
+            <div class="admin-access-content">
+
+                <span class="section-kicker">
+                    ADMIN ACCESS
+                </span>
+
+                <h3>
+                    Administrator Dashboard
+                </h3>
+
+                <p>
+                    Access the project analytics and administration
+                    panel for college demonstration.
+                </p>
+
+                <a
+                    href="{{ url_for('admin_login') }}"
+                    class="btn btn-primary admin-login-btn"
+                >
+                    Admin Login →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =================================
+   PROFILE PAGE
+================================= */
+
+.profile-page {
+    padding-bottom: 40px;
+}
+
+
+.profile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+.profile-head h1 {
+    margin-bottom: 6px;
+}
+
+
+.profile-header-icon {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    background: #edf8f6;
+
+    border: 1px solid #d7eeea;
+}
+
+
+/* =================================
+   PROFILE GRID
+================================= */
+
+.profile-grid {
+
+    display: grid;
+
+    grid-template-columns: .85fr 1.5fr;
+
+    gap: 22px;
+
+    margin-top: 22px;
+}
+
+
+/* =================================
+   PROFILE CARD
+================================= */
+
+.profile-main-card {
+
+    text-align: center;
+
+    padding: 34px 28px;
+}
+
+
+.profile-avatar {
+
+    width: 92px;
+    height: 92px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #0f766e,
+        #14b8a6
+    );
+
+    color: white;
+
+    font-size: 34px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 28px rgba(15,118,110,.22);
+}
+
+
+.profile-main-card h2 {
+
+    margin: 0;
+
+    font-size: 23px;
+}
+
+
+.profile-email {
+
+    margin: 7px 0 14px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+.profile-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: #ecfdf5;
+
+    color: #047857;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #10b981;
+}
+
+
+/* =================================
+   PROFILE INFORMATION
+================================= */
+
+.profile-divider {
+
+    height: 1px;
+
+    background: #e2e8f0;
+
+    margin: 25px 0 20px;
+}
+
+
+.profile-info {
+
+    display: grid;
+
+    gap: 15px;
+
+    text-align: left;
+}
+
+
+.info-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+}
+
+
+.info-icon {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #edf8f6;
+
+    font-size: 17px;
+}
+
+
+.info-row div {
+
+    min-width: 0;
+}
+
+
+.info-row small {
+
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    margin-bottom: 3px;
+}
+
+
+.info-row strong {
+
+    display: block;
+
+    color: #1e293b;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+/* =================================
+   EDIT PROFILE
+================================= */
+
+.profile-edit-card {
+
+    padding: 30px;
+}
+
+
+.card-heading {
+
+    margin-bottom: 25px;
+}
+
+
+.section-kicker {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #0f766e;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .08em;
+}
+
+
+.card-heading h2 {
+
+    margin: 0 0 6px;
+
+    font-size: 23px;
+}
+
+
+.card-heading p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =================================
+   FORM
+================================= */
+
+.profile-form {
+
+    max-width: 620px;
+}
+
+
+.profile-form .field {
+
+    margin-bottom: 20px;
+}
+
+
+.profile-form label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.input-with-icon {
+
+    position: relative;
+}
+
+
+.input-with-icon > span {
+
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 16px;
+
+    pointer-events: none;
+}
+
+
+.input-with-icon input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px 13px 43px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    color: #0f172a;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s ease;
+}
+
+
+.input-with-icon input:focus {
+
+    border-color: #14b8a6;
+
+    box-shadow:
+        0 0 0 3px rgba(20,184,166,.12);
+}
+
+
+.disabled-input input {
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    cursor: not-allowed;
+}
+
+
+.field-help {
+
+    display: block;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   PROFILE BUTTONS
+================================= */
+
+.profile-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+
+.profile-actions .btn {
+
+    min-width: 130px;
+
+    text-align: center;
+}
+
+
+/* =================================
+   BOTTOM CARDS
+================================= */
+
+.profile-bottom-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+
+/* Account Card */
+
+.account-info-card {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px 22px;
+
+    background: #f8fafc;
+}
+
+
+.account-info-icon {
+
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf8f6;
+
+    font-size: 20px;
+}
+
+
+.account-info-card h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 16px;
+}
+
+
+.account-info-card p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =================================
+   ADMIN ACCESS CARD
+================================= */
+
+.admin-access-card {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px 22px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid #dce7e7;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.admin-access-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -50px;
+    bottom: -55px;
+
+    border-radius: 50%;
+
+    background: rgba(20,184,166,.06);
+
+    pointer-events: none;
+}
+
+
+.admin-access-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.08);
+}
+
+
+.admin-access-icon {
+
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf8f6;
+
+    font-size: 20px;
+}
+
+
+.admin-access-content {
+
+    min-width: 0;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+.admin-access-content .section-kicker {
+
+    margin-bottom: 5px;
+}
+
+
+.admin-access-content h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 16px;
+}
+
+
+.admin-access-content p {
+
+    margin: 0 0 14px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.admin-login-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   DARK MODE
+================================= */
+
+html[data-theme="dark"] .profile-header-icon {
+
+    background: #163b3a;
+
+    border-color: #28514e;
+}
+
+
+html[data-theme="dark"] .profile-email {
+
+    color: #94a3b8;
+}
+
+
+html[data-theme="dark"] .profile-status {
+
+    background: rgba(16,185,129,.12);
+
+    color: #6ee7b7;
+}
+
+
+html[data-theme="dark"] .profile-divider {
+
+    background: #334155;
+}
+
+
+html[data-theme="dark"] .info-row {
+
+    background: #172235;
+}
+
+
+html[data-theme="dark"] .info-icon {
+
+    background: #1e293b;
+}
+
+
+html[data-theme="dark"] .info-row small {
+
+    color: #64748b;
+}
+
+
+html[data-theme="dark"] .info-row strong {
+
+    color: #e2e8f0;
+}
+
+
+html[data-theme="dark"] .section-kicker {
+
+    color: #5eead4;
+}
+
+
+html[data-theme="dark"] .card-heading p {
+
+    color: #94a3b8;
+}
+
+
+html[data-theme="dark"] .profile-form label {
+
+    color: #cbd5e1;
+}
+
+
+html[data-theme="dark"] .input-with-icon input {
+
+    background: #0f172a;
+
+    border-color: #334155;
+
+    color: #f8fafc;
+}
+
+
+html[data-theme="dark"] .input-with-icon input:focus {
+
+    border-color: #2dd4bf;
+
+    box-shadow:
+        0 0 0 3px rgba(45,212,191,.12);
+}
+
+
+html[data-theme="dark"] .disabled-input input {
+
+    background: #172235;
+
+    color: #94a3b8;
+}
+
+
+html[data-theme="dark"] .field-help {
+
+    color: #64748b;
+}
+
+
+html[data-theme="dark"] .profile-actions {
+
+    border-color: #334155;
+}
+
+
+html[data-theme="dark"] .account-info-card {
+
+    background: #111827;
+
+    border-color: #334155;
+}
+
+
+html[data-theme="dark"] .account-info-icon {
+
+    background: #1e293b;
+}
+
+
+html[data-theme="dark"] .account-info-card h3 {
+
+    color: #e2e8f0;
+}
+
+
+html[data-theme="dark"] .account-info-card p {
+
+    color: #94a3b8;
+}
+
+
+/* Admin Dark Mode */
+
+html[data-theme="dark"] .admin-access-card {
+
+    background: #111827;
+
+    border-color: #334155;
+
+    box-shadow: none;
+}
+
+
+html[data-theme="dark"] .admin-access-card:hover {
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.25);
+}
+
+
+html[data-theme="dark"] .admin-access-card::after {
+
+    background: rgba(45,212,191,.05);
+}
+
+
+html[data-theme="dark"] .admin-access-icon {
+
+    background: #1e293b;
+}
+
+
+html[data-theme="dark"] .admin-access-content h3 {
+
+    color: #e2e8f0;
+}
+
+
+html[data-theme="dark"] .admin-access-content p {
+
+    color: #94a3b8;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 850px) {
+
+    .profile-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .profile-main-card {
+
+        padding: 28px 22px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .profile-bottom-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .profile-head {
+
+        align-items: flex-start;
+    }
+
+    .profile-header-icon {
+
+        width: 48px;
+        height: 48px;
+
+        border-radius: 14px;
+
+        font-size: 22px;
+    }
+
+    .profile-edit-card {
+
+        padding: 22px 18px;
+    }
+
+    .profile-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .profile-actions .btn {
+
+        width: 100%;
+    }
+
+    .account-info-card,
+    .admin-access-card {
+
+        padding: 17px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

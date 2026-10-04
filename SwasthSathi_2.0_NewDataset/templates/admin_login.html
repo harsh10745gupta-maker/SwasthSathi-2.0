@@ -1,0 +1,883 @@
+{% extends "base.html" %}
+
+{% block title %}Admin · SwasthSathi{% endblock %}
+
+{% block content %}
+
+<div class="admin-login-page">
+
+    <div class="admin-login-wrapper">
+
+        <!-- Left Branding Panel -->
+        <div class="admin-brand-panel">
+
+            <div class="admin-brand-icon">⚙️</div>
+
+            <span class="admin-kicker">
+                SWASTHSATHI 2.0
+            </span>
+
+            <h1>Admin<br>Dashboard</h1>
+
+            <p>
+                Manage and review the educational screening
+                platform from one centralized dashboard.
+            </p>
+
+            <div class="admin-feature-list">
+
+                <div class="admin-feature">
+                    <span>📊</span>
+                    <div>
+                        <strong>Analytics</strong>
+                        <small>View assessment statistics</small>
+                    </div>
+                </div>
+
+                <div class="admin-feature">
+                    <span>👥</span>
+                    <div>
+                        <strong>User Activity</strong>
+                        <small>Monitor platform usage</small>
+                    </div>
+                </div>
+
+                <div class="admin-feature">
+                    <span>🧠</span>
+                    <div>
+                        <strong>ML Screening</strong>
+                        <small>Track prediction activity</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Login Panel -->
+        <div class="admin-login-card">
+
+            <div class="admin-mobile-icon">
+                ⚙️
+            </div>
+
+            <div class="login-heading">
+
+                <span class="section-kicker">
+                    SECURE ACCESS
+                </span>
+
+                <h2>Welcome, Admin</h2>
+
+                <p>
+                    Enter the administrator password to
+                    access the analytics dashboard.
+                </p>
+
+            </div>
+
+
+            <form method="post" class="admin-form">
+
+                <div class="field">
+
+                    <label for="admin-password">
+                        Admin Password
+                    </label>
+
+                    <div class="admin-password-input">
+
+                        <span>🔐</span>
+
+                        <input
+                            id="admin-password"
+                            type="password"
+                            name="password"
+                            placeholder="Enter admin password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="toggle-password"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary admin-submit"
+                >
+                    Open Admin Dashboard
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="admin-security-note">
+
+                <span>🔒</span>
+
+                <div>
+                    <strong>Restricted Area</strong>
+                    <p>
+                        This section is intended for authorized
+                        college project demonstration use.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Keep your existing demo password information -->
+            <div class="demo-password">
+                <span>Demo access</span>
+                <code>admin123</code>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =========================================
+   ADMIN LOGIN
+========================================= */
+
+.admin-login-page {
+    min-height: calc(100vh - 150px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 45px 20px;
+}
+
+
+/* Main Wrapper */
+
+.admin-login-wrapper {
+    width: min(920px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    overflow: hidden;
+
+    border-radius: 26px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce7e7;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, .12);
+}
+
+
+/* =========================================
+   BRAND PANEL
+========================================= */
+
+.admin-brand-panel {
+
+    position: relative;
+
+    padding: 48px 42px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(45,212,191,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #0f172a,
+            #123d3a
+        );
+
+    overflow: hidden;
+}
+
+.admin-brand-panel::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    right: -100px;
+    bottom: -100px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow:
+        0 0 0 35px rgba(255,255,255,.025),
+        0 0 0 70px rgba(255,255,255,.02);
+}
+
+
+.admin-brand-icon {
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.10);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    font-size: 26px;
+
+    margin-bottom: 27px;
+}
+
+
+.admin-kicker {
+
+    display: block;
+
+    color: #5eead4;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .12em;
+
+    margin-bottom: 12px;
+}
+
+
+.admin-brand-panel h1 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 39px;
+
+    line-height: 1.08;
+
+    letter-spacing: -.04em;
+}
+
+
+.admin-brand-panel > p {
+
+    max-width: 360px;
+
+    margin: 20px 0 32px;
+
+    color: #b7cfcd;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* Feature List */
+
+.admin-feature-list {
+
+    display: grid;
+
+    gap: 13px;
+}
+
+
+.admin-feature {
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.06);
+
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+
+.admin-feature > span {
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 38px;
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,.09);
+
+    font-size: 17px;
+}
+
+
+.admin-feature strong {
+
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    margin-bottom: 2px;
+}
+
+
+.admin-feature small {
+
+    display: block;
+
+    color: #9fb8b6;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   LOGIN CARD
+========================================= */
+
+.admin-login-card {
+
+    padding: 48px 42px;
+
+    background: #ffffff;
+}
+
+
+.admin-mobile-icon {
+
+    display: none;
+}
+
+
+.login-heading {
+
+    margin-bottom: 28px;
+}
+
+
+.login-heading .section-kicker {
+
+    display: block;
+
+    color: #0f766e;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .10em;
+
+    margin-bottom: 8px;
+}
+
+
+.login-heading h2 {
+
+    margin: 0 0 8px;
+
+    color: #0f172a;
+
+    font-size: 27px;
+
+    letter-spacing: -.025em;
+}
+
+
+.login-heading p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* Form */
+
+.admin-form .field {
+
+    margin-bottom: 20px;
+}
+
+
+.admin-form label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.admin-password-input {
+
+    position: relative;
+}
+
+
+.admin-password-input > span {
+
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 16px;
+
+    pointer-events: none;
+}
+
+
+.admin-password-input input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 48px 14px 43px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    color: #0f172a;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: .2s ease;
+}
+
+
+.admin-password-input input:focus {
+
+    border-color: #14b8a6;
+
+    box-shadow:
+        0 0 0 3px rgba(20,184,166,.12);
+}
+
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    opacity: .7;
+}
+
+
+.password-toggle:hover {
+
+    background: #f1f5f9;
+
+    opacity: 1;
+}
+
+
+/* Submit */
+
+.admin-submit {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 13px 18px;
+
+    margin-top: 5px;
+}
+
+
+.admin-submit span {
+
+    font-size: 18px;
+
+    transition: transform .2s ease;
+}
+
+
+.admin-submit:hover span {
+
+    transform: translateX(4px);
+}
+
+
+/* Security Note */
+
+.admin-security-note {
+
+    display: flex;
+
+    gap: 11px;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.admin-security-note > span {
+
+    font-size: 18px;
+}
+
+
+.admin-security-note strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #334155;
+
+    font-size: 12px;
+}
+
+
+.admin-security-note p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* Demo Password */
+
+.demo-password {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 17px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #e2e8f0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+.demo-password code {
+
+    padding: 5px 8px;
+
+    border-radius: 7px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-family: monospace;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+html[data-theme="dark"] .admin-login-wrapper {
+
+    background: #111827;
+
+    border-color: #334155;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+
+html[data-theme="dark"] .admin-login-card {
+
+    background: #111827;
+}
+
+
+html[data-theme="dark"] .login-heading .section-kicker {
+
+    color: #5eead4;
+}
+
+
+html[data-theme="dark"] .login-heading h2 {
+
+    color: #f8fafc;
+}
+
+
+html[data-theme="dark"] .login-heading p {
+
+    color: #94a3b8;
+}
+
+
+html[data-theme="dark"] .admin-form label {
+
+    color: #cbd5e1;
+}
+
+
+html[data-theme="dark"] .admin-password-input input {
+
+    background: #0f172a;
+
+    border-color: #334155;
+
+    color: #f8fafc;
+}
+
+
+html[data-theme="dark"] .admin-password-input input:focus {
+
+    border-color: #2dd4bf;
+
+    box-shadow:
+        0 0 0 3px rgba(45,212,191,.12);
+}
+
+
+html[data-theme="dark"] .password-toggle:hover {
+
+    background: #1e293b;
+}
+
+
+html[data-theme="dark"] .admin-security-note {
+
+    background: #172235;
+
+    border-color: #334155;
+}
+
+
+html[data-theme="dark"] .admin-security-note strong {
+
+    color: #e2e8f0;
+}
+
+
+html[data-theme="dark"] .admin-security-note p {
+
+    color: #94a3b8;
+}
+
+
+html[data-theme="dark"] .demo-password {
+
+    border-color: #334155;
+
+    color: #64748b;
+}
+
+
+html[data-theme="dark"] .demo-password code {
+
+    background: #1e293b;
+
+    color: #cbd5e1;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .admin-login-wrapper {
+
+        grid-template-columns: 1fr;
+
+        max-width: 540px;
+    }
+
+    .admin-brand-panel {
+
+        display: none;
+    }
+
+    .admin-mobile-icon {
+
+        width: 55px;
+        height: 55px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 20px;
+
+        border-radius: 16px;
+
+        background: #edf8f6;
+
+        font-size: 24px;
+    }
+
+    html[data-theme="dark"] .admin-mobile-icon {
+
+        background: #163b3a;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .admin-login-page {
+
+        padding: 25px 14px;
+    }
+
+    .admin-login-card {
+
+        padding: 32px 22px;
+    }
+
+    .login-heading h2 {
+
+        font-size: 24px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* Show / Hide Admin Password */
+
+const passwordInput =
+    document.getElementById("admin-password");
+
+const togglePassword =
+    document.getElementById("toggle-password");
+
+if (passwordInput && togglePassword) {
+
+    togglePassword.addEventListener("click", function () {
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+
+            togglePassword.textContent = "🙈";
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            passwordInput.type = "password";
+
+            togglePassword.textContent = "👁";
+
+            togglePassword.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

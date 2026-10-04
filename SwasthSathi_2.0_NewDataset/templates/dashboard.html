@@ -1,0 +1,1938 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard · SwasthSathi{% endblock %}
+
+{% block content %}
+
+<style>
+/* =====================================================
+   SWASTHSATHI 2.0 — PROFESSIONAL DASHBOARD
+   ===================================================== */
+
+.dashboard-page {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 18px 0 50px;
+}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.dashboard-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 245px;
+    padding: 38px;
+    margin-bottom: 24px;
+    border-radius: 28px;
+
+    background:
+        radial-gradient(circle at 90% 10%,
+            rgba(14,165,233,.18),
+            transparent 28%),
+        radial-gradient(circle at 75% 90%,
+            rgba(16,185,129,.14),
+            transparent 30%),
+        linear-gradient(135deg,
+            #f8fdff 0%,
+            #f0fdfa 100%);
+
+    border: 1px solid rgba(14,165,233,.13);
+
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.08);
+
+    animation: heroEnter .7s ease both;
+}
+
+.dashboard-hero::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    right: -70px;
+    top: -90px;
+    background: rgba(14,165,233,.08);
+    animation: floatCircle 6s ease-in-out infinite;
+}
+
+.dashboard-hero::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    right: 190px;
+    bottom: -85px;
+    background: rgba(16,185,129,.07);
+    animation: floatCircle 7s ease-in-out infinite reverse;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 35px;
+}
+
+.hero-text {
+    max-width: 720px;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 7px 13px;
+    margin-bottom: 15px;
+
+    border-radius: 999px;
+
+    background: rgba(14,165,233,.10);
+    color: #0284c7;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .6px;
+    text-transform: uppercase;
+}
+
+.hero-label span {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 5px rgba(16,185,129,.12);
+
+    animation: statusPulse 2s infinite;
+}
+
+.hero-text h1 {
+    margin: 0 0 10px;
+
+    font-size: clamp(29px, 4vw, 43px);
+    line-height: 1.12;
+
+    letter-spacing: -1.2px;
+
+    color: #0f172a;
+}
+
+.hero-text h1 .user-name {
+    color: #0284c7;
+}
+
+.hero-text p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.hero-action {
+    position: relative;
+    z-index: 5;
+
+    flex-shrink: 0;
+}
+
+.hero-action .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-width: 190px;
+
+    padding: 14px 20px;
+
+    border-radius: 14px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 25px rgba(14,165,233,.20);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.hero-action .btn:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 18px 32px rgba(14,165,233,.28);
+}
+
+/* =====================================================
+   QUICK INFO
+   ===================================================== */
+
+.quick-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    margin-top: 26px;
+}
+
+.quick-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.quick-info-item strong {
+    color: #334155;
+}
+
+.quick-dot {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+    background: #cbd5e1;
+}
+
+/* =====================================================
+   STATISTICS
+   ===================================================== */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 24px;
+}
+
+.dashboard-stat {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 135px;
+
+    padding: 23px;
+
+    border-radius: 21px;
+
+    background: var(--card, #ffffff);
+
+    border:
+        1px solid rgba(15,23,42,.07);
+
+    box-shadow:
+        0 9px 28px rgba(15,23,42,.055);
+
+    transition:
+        transform .28s ease,
+        box-shadow .28s ease;
+
+    animation: cardEnter .65s ease both;
+}
+
+.dashboard-stat:nth-child(1) {
+    animation-delay: .08s;
+}
+
+.dashboard-stat:nth-child(2) {
+    animation-delay: .16s;
+}
+
+.dashboard-stat:nth-child(3) {
+    animation-delay: .24s;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 38px rgba(15,23,42,.10);
+}
+
+.stat-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    position: relative;
+    z-index: 2;
+}
+
+.stat-info small {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.stat-info strong {
+    display: block;
+
+    color: #0f172a;
+
+    font-size: 31px;
+    line-height: 1;
+
+    letter-spacing: -.7px;
+}
+
+.stat-subtitle {
+    display: block;
+
+    margin-top: 9px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
+
+    font-size: 24px;
+
+    transition:
+        transform .3s ease;
+}
+
+.dashboard-stat:hover .stat-icon {
+    transform:
+        scale(1.1)
+        rotate(4deg);
+}
+
+.stat-decoration {
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -42px;
+    bottom: -48px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(14,165,233,.05);
+}
+
+/* =====================================================
+   MAIN GRID
+   ===================================================== */
+
+.main-dashboard {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.65fr)
+        minmax(300px, .95fr);
+
+    gap: 20px;
+}
+
+/* =====================================================
+   CARD
+   ===================================================== */
+
+.dashboard-card {
+    position: relative;
+
+    padding: 24px;
+
+    border-radius: 21px;
+
+    background: var(--card, #ffffff);
+
+    border:
+        1px solid rgba(15,23,42,.07);
+
+    box-shadow:
+        0 9px 28px rgba(15,23,42,.055);
+
+    animation: cardEnter .7s ease both;
+}
+
+.main-dashboard .dashboard-card:nth-child(2) {
+    animation-delay: .12s;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.card-heading h2 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 19px;
+
+    letter-spacing: -.25px;
+}
+
+.card-heading p {
+    margin: 5px 0 0;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.view-all {
+    white-space: nowrap;
+}
+
+/* =====================================================
+   ASSESSMENT LIST
+   ===================================================== */
+
+.assessment-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.assessment-row {
+    display: grid;
+
+    grid-template-columns:
+        45px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px;
+
+    border-radius: 15px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid transparent;
+
+    transition:
+        background .2s ease,
+        border .2s ease,
+        transform .2s ease;
+}
+
+.assessment-row:hover {
+    background: #ffffff;
+
+    border-color:
+        rgba(14,165,233,.15);
+
+    transform:
+        translateX(4px);
+}
+
+.assessment-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,165,233,.12),
+            rgba(16,185,129,.10)
+        );
+
+    font-size: 20px;
+}
+
+.assessment-main {
+    min-width: 0;
+}
+
+.assessment-main strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #1e293b;
+
+    font-size: 14px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.assessment-date {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.assessment-score {
+    text-align: right;
+}
+
+.score-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+}
+
+.score-badge {
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(16,185,129,.10);
+
+    color: #059669;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+
+.empty-state {
+    padding: 42px 15px;
+
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 65px;
+    height: 65px;
+
+    margin:
+        0 auto 14px;
+
+    border-radius: 19px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
+
+    font-size: 28px;
+
+    animation: gentleFloat 3s ease-in-out infinite;
+}
+
+.empty-state strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #334155;
+}
+
+.empty-state p {
+    max-width: 340px;
+
+    margin: 0 auto;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   WORKFLOW
+   ===================================================== */
+
+.workflow {
+    display: flex;
+    flex-direction: column;
+
+    gap: 17px;
+}
+
+.workflow-step {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 31px;
+    height: 31px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(14,165,233,.10);
+
+    color: #0284c7;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.workflow-step:hover .step-number {
+    transform: scale(1.08);
+
+    background:
+        rgba(14,165,233,.16);
+}
+
+.step-content strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+.step-content span {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+/* =====================================================
+   AI STATUS
+   ===================================================== */
+
+.ai-status {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin-top: 22px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdf4,
+            #ecfdf5
+        );
+
+    border:
+        1px solid rgba(16,185,129,.10);
+}
+
+.ai-pulse {
+    position: relative;
+
+    width: 10px;
+    height: 10px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #10b981;
+}
+
+.ai-pulse::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -6px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(16,185,129,.28);
+
+    animation:
+        pulse 1.8s infinite;
+}
+
+.ai-status strong {
+    display: block;
+
+    color: #166534;
+
+    font-size: 12px;
+}
+
+.ai-status span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #65a30d;
+
+    font-size: 10px;
+}
+
+/* =====================================================
+   DISCLAIMER
+   ===================================================== */
+
+.dashboard-disclaimer {
+    margin-top: 17px;
+
+    padding: 13px 15px;
+
+    border-radius: 13px;
+
+    background: #fffbeb;
+
+    border:
+        1px solid #fef3c7;
+
+    color: #92400e;
+
+    font-size: 11px;
+
+    line-height: 1.65;
+}
+
+/* =====================================================
+   BOTTOM INFO
+   ===================================================== */
+
+.dashboard-footer-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.info-mini {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    border:
+        1px solid rgba(15,23,42,.06);
+
+    box-shadow:
+        0 6px 20px rgba(15,23,42,.04);
+
+    transition:
+        transform .25s ease;
+}
+
+.info-mini:hover {
+    transform: translateY(-3px);
+}
+
+.info-mini-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #f1f5f9;
+
+    font-size: 17px;
+}
+
+.info-mini strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 11px;
+}
+
+.info-mini span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes heroEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(18px)
+            scale(.985);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatCircle {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(12px);
+    }
+}
+
+@keyframes gentleFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes statusPulse {
+
+    0%,100% {
+        box-shadow:
+            0 0 0 4px rgba(16,185,129,.12);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 8px rgba(16,185,129,.04);
+    }
+}
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(.7);
+        opacity: .9;
+    }
+
+    70% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 950px) {
+
+    .main-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-footer-info {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+
+    .dashboard-page {
+        padding:
+            5px 0 35px;
+    }
+
+    .dashboard-hero {
+        min-height: auto;
+
+        padding: 27px 23px;
+
+        border-radius: 21px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 24px;
+    }
+
+    .hero-action {
+        width: 100%;
+    }
+
+    .hero-action .btn {
+        width: 100%;
+    }
+
+    .quick-info {
+        flex-wrap: wrap;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-stat {
+        min-height: 115px;
+    }
+
+    .dashboard-card {
+        padding: 19px;
+    }
+
+    .dashboard-footer-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero-text h1 {
+        font-size: 29px;
+    }
+
+    .hero-text p {
+        font-size: 13px;
+    }
+
+    .assessment-row {
+        grid-template-columns:
+            40px
+            minmax(0,1fr);
+    }
+
+    .assessment-score {
+        display: none;
+    }
+
+    .assessment-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .card-heading {
+        align-items: flex-start;
+    }
+
+    .view-all {
+        font-size: 11px;
+    }
+}
+
+/* =====================================================
+   DASHBOARD DARK MODE
+   ===================================================== */
+
+html[data-theme="dark"] .dashboard-hero {
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(14,165,233,.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 75% 90%,
+            rgba(16,185,129,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #111827 0%,
+            #132c31 100%
+        );
+
+    border-color: #334155;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.30);
+}
+
+html[data-theme="dark"] .hero-label {
+    background: rgba(45,212,191,.12);
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .hero-text h1 {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .hero-text h1 .user-name {
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .hero-text p {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .quick-info-item {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .quick-info-item strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .quick-dot {
+    background: #475569;
+}
+
+
+/* STAT CARDS */
+
+html[data-theme="dark"] .dashboard-stat {
+    background: #111827;
+    border-color: #334155;
+
+    box-shadow:
+        0 9px 28px rgba(0,0,0,.25);
+}
+
+html[data-theme="dark"] .dashboard-stat:hover {
+    box-shadow:
+        0 18px 38px rgba(0,0,0,.35);
+}
+
+html[data-theme="dark"] .stat-info small {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .stat-info strong {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .stat-subtitle {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .stat-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #163b3a
+        );
+}
+
+
+/* MAIN DASHBOARD CARDS */
+
+html[data-theme="dark"] .dashboard-card {
+    background: #111827;
+    border-color: #334155;
+
+    box-shadow:
+        0 9px 28px rgba(0,0,0,.25);
+}
+
+html[data-theme="dark"] .card-heading h2 {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .card-heading p {
+    color: #64748b;
+}
+
+
+/* ASSESSMENT ROWS */
+
+html[data-theme="dark"] .assessment-row {
+    background: #172235;
+    border-color: transparent;
+}
+
+html[data-theme="dark"] .assessment-row:hover {
+    background: #1e293b;
+    border-color: rgba(45,212,191,.20);
+}
+
+html[data-theme="dark"] .assessment-main strong {
+    color: #f1f5f9;
+}
+
+html[data-theme="dark"] .assessment-date {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .score-label {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .score-badge {
+    background: rgba(16,185,129,.14);
+    color: #6ee7b7;
+}
+
+
+/* EMPTY STATE */
+
+html[data-theme="dark"] .empty-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #163b3a
+        );
+}
+
+html[data-theme="dark"] .empty-state strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .empty-state p {
+    color: #64748b;
+}
+
+
+/* HOW IT WORKS */
+
+html[data-theme="dark"] .step-number {
+    background: rgba(45,212,191,.12);
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .step-content strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .step-content span {
+    color: #94a3b8;
+}
+
+
+/* AI STATUS */
+
+html[data-theme="dark"] .ai-status {
+    background:
+        linear-gradient(
+            135deg,
+            #102a24,
+            #12332d
+        );
+
+    border-color: rgba(16,185,129,.18);
+}
+
+html[data-theme="dark"] .ai-status strong {
+    color: #6ee7b7;
+}
+
+html[data-theme="dark"] .ai-status span {
+    color: #a3e635;
+}
+
+
+/* IMPORTANT / DISCLAIMER */
+
+html[data-theme="dark"] .dashboard-disclaimer {
+    background: #302713;
+    border-color: #66521d;
+    color: #fde68a;
+}
+
+html[data-theme="dark"] .dashboard-disclaimer strong {
+    color: #fbbf24;
+}
+
+
+/* BOTTOM INFO */
+
+html[data-theme="dark"] .info-mini {
+    background: #111827;
+    border-color: #334155;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.25);
+}
+
+html[data-theme="dark"] .info-mini-icon {
+    background: #1e293b;
+}
+
+html[data-theme="dark"] .info-mini strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .info-mini span {
+    color: #64748b;
+}
+
+
+/* VIEW ALL BUTTON */
+
+html[data-theme="dark"] .view-all {
+    background: #163b3a;
+    color: #5eead4;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    html[data-theme="dark"] .dashboard-hero {
+        background:
+            linear-gradient(
+                135deg,
+                #111827,
+                #132c31
+            );
+    }
+}
+</style>
+
+
+<div class="container dashboard-page">
+
+    <!-- =================================================
+         HERO
+         ================================================= -->
+
+    <section class="dashboard-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-text">
+
+                <div class="hero-label">
+                    <span></span>
+                    SwasthSathi AI Health Screening
+                </div>
+
+                <h1>
+                    Good to see you
+                    {% if current_user.name %}
+                        <span class="user-name">
+                            , {{ current_user.name }}
+                        </span>
+                    {% endif %}
+                    👋
+                </h1>
+
+                <p>
+                    Your personal AI-powered health screening workspace.
+                    Start a new assessment, review your previous results,
+                    and keep track of your screening activity.
+                </p>
+
+                <div class="quick-info">
+
+                    <div class="quick-info-item">
+                        🛡️
+                        <strong>Secure</strong>
+                    </div>
+
+                    <div class="quick-dot"></div>
+
+                    <div class="quick-info-item">
+                        🤖
+                        <strong>AI Powered</strong>
+                    </div>
+
+                    <div class="quick-dot"></div>
+
+                    <div class="quick-info-item">
+                        📊
+                        <strong>Data Driven</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-action">
+
+                <a
+                    class="btn btn-primary"
+                    href="{{ url_for('assessment') }}"
+                >
+                    <span>✨</span>
+                    New Assessment
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         STATISTICS
+         ================================================= -->
+
+    <section class="stats-grid">
+
+        <!-- TOTAL -->
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+
+                <div class="stat-info">
+
+                    <small>
+                        Total Assessments
+                    </small>
+
+                    <strong data-count="{{ total }}">
+                        0
+                    </strong>
+
+                    <span class="stat-subtitle">
+                        Your screening history
+                    </span>
+
+                </div>
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+            </div>
+
+            <div class="stat-decoration"></div>
+
+        </div>
+
+
+        <!-- AI -->
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+
+                <div class="stat-info">
+
+                    <small>
+                        Screening Platform
+                    </small>
+
+                    <strong>
+                        AI
+                    </strong>
+
+                    <span class="stat-subtitle">
+                        Machine learning based
+                    </span>
+
+                </div>
+
+                <div class="stat-icon">
+                    🤖
+                </div>
+
+            </div>
+
+            <div class="stat-decoration"></div>
+
+        </div>
+
+
+        <!-- MODEL -->
+
+        <div class="dashboard-stat">
+
+            <div class="stat-top">
+
+                <div class="stat-info">
+
+                    <small>
+                        Prediction Model
+                    </small>
+
+                    <strong>
+                        RF
+                    </strong>
+
+                    <span class="stat-subtitle">
+                        Random Forest
+                    </span>
+
+                </div>
+
+                <div class="stat-icon">
+                    🌲
+                </div>
+
+            </div>
+
+            <div class="stat-decoration"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MAIN CONTENT
+         ================================================= -->
+
+    <section class="main-dashboard">
+
+
+        <!-- =================================================
+             RECENT ASSESSMENTS
+             ================================================= -->
+
+        <div class="dashboard-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2>
+                        Recent Assessments
+                    </h2>
+
+                    <p>
+                        Your latest health-screening activity
+                    </p>
+
+                </div>
+
+                <a
+                    class="btn btn-soft view-all"
+                    href="{{ url_for('history') }}"
+                >
+                    View All →
+                </a>
+
+            </div>
+
+
+            {% if recent %}
+
+                <div class="assessment-list">
+
+                    {% for a in recent %}
+
+                        <div class="assessment-row">
+
+                            <div class="assessment-icon">
+                                🩺
+                            </div>
+
+
+                            <div class="assessment-main">
+
+                                <strong>
+                                    {{ a.prediction }}
+                                </strong>
+
+                                <span class="assessment-date">
+                                    {{ a.created_at.strftime('%d %b %Y, %I:%M %p') }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="assessment-score">
+
+                                <span class="score-label">
+                                    Confidence
+                                </span>
+
+                                <span class="score-badge">
+                                    {{ '%.1f'|format(a.confidence) }}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        📋
+                    </div>
+
+                    <strong>
+                        No assessments yet
+                    </strong>
+
+                    <p>
+                        Start your first health screening to see
+                        your results and activity here.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =================================================
+             HOW IT WORKS
+             ================================================= -->
+
+        <div class="dashboard-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2>
+                        How It Works
+                    </h2>
+
+                    <p>
+                        Simple 4-step screening process
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="workflow">
+
+
+                <!-- STEP 1 -->
+
+                <div class="workflow-step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div class="step-content">
+
+                        <strong>
+                            Select Symptoms
+                        </strong>
+
+                        <span>
+                            Choose the symptoms you are
+                            experiencing from the assessment screen.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 2 -->
+
+                <div class="workflow-step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div class="step-content">
+
+                        <strong>
+                            Add Information
+                        </strong>
+
+                        <span>
+                            Provide the basic information requested
+                            by the screening system.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 3 -->
+
+                <div class="workflow-step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div class="step-content">
+
+                        <strong>
+                            Run AI Screening
+                        </strong>
+
+                        <span>
+                            The Random Forest model analyzes the
+                            selected symptoms.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 4 -->
+
+                <div class="workflow-step">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <div class="step-content">
+
+                        <strong>
+                            Review Result
+                        </strong>
+
+                        <span>
+                            View the prediction, confidence and
+                            available health information.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI STATUS -->
+
+            <div class="ai-status">
+
+                <div class="ai-pulse"></div>
+
+                <div>
+
+                    <strong>
+                        AI Screening System Ready
+                    </strong>
+
+                    <span>
+                        Random Forest model available
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- DISCLAIMER -->
+
+            <div class="dashboard-disclaimer">
+
+                <strong>
+                    ⚠ Important:
+                </strong>
+
+                SwasthSathi provides an educational
+                AI-based health screening. Results are
+                not a medical diagnosis. Please consult
+                a qualified healthcare professional for
+                medical advice.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         BOTTOM INFORMATION
+         ================================================= -->
+
+    <section class="dashboard-footer-info">
+
+        <div class="info-mini">
+
+            <div class="info-mini-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <strong>
+                    Privacy Focused
+                </strong>
+
+                <span>
+                    Your screening activity stays within the system.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-mini">
+
+            <div class="info-mini-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <strong>
+                    ML Powered
+                </strong>
+
+                <span>
+                    Predictions use the trained Random Forest model.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-mini">
+
+            <div class="info-mini-icon">
+                👨‍⚕️
+            </div>
+
+            <div>
+
+                <strong>
+                    Professional Advice
+                </strong>
+
+                <span>
+                    Consult a healthcare professional when needed.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =====================================================
+     COUNTER ANIMATION
+     ===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const counters =
+            document.querySelectorAll(
+                "[data-count]"
+            );
+
+        counters.forEach(
+            function (counter) {
+
+                const target =
+                    parseInt(
+                        counter.dataset.count || "0",
+                        10
+                    );
+
+                if (
+                    isNaN(target) ||
+                    target <= 0
+                ) {
+
+                    counter.textContent = "0";
+
+                    return;
+                }
+
+                const duration = 900;
+
+                const startTime =
+                    performance.now();
+
+
+                function updateCounter(
+                    currentTime
+                ) {
+
+                    const progress =
+                        Math.min(
+                            (currentTime -
+                                startTime) /
+                                duration,
+                            1
+                        );
+
+
+                    const eased =
+                        1 -
+                        Math.pow(
+                            1 - progress,
+                            3
+                        );
+
+
+                    const current =
+                        Math.floor(
+                            eased * target
+                        );
+
+
+                    counter.textContent =
+                        current;
+
+
+                    if (
+                        progress < 1
+                    ) {
+
+                        requestAnimationFrame(
+                            updateCounter
+                        );
+
+                    } else {
+
+                        counter.textContent =
+                            target;
+
+                    }
+
+                }
+
+
+                requestAnimationFrame(
+                    updateCounter
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+{% endblock %}

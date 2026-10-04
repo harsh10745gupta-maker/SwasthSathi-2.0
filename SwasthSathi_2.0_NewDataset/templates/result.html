@@ -1,0 +1,1583 @@
+{% extends "base.html" %}
+
+{% block title %}AI Result · SwasthSathi{% endblock %}
+
+{% block content %}
+
+<div class="container result-page">
+
+    <!-- =========================
+         RESULT HERO
+    ========================== -->
+
+    <section class="result-hero">
+
+        <div class="result-glow"></div>
+
+        <div class="result-content">
+
+            <span class="result-badge">
+                ✦ AI-ASSISTED EDUCATIONAL SCREENING
+            </span>
+
+            <div class="result-status">
+                ✓ Analysis completed
+            </div>
+
+            <p class="result-label">
+                MODEL PREDICTION
+            </p>
+
+            <h1>
+                {{ assessment.prediction }}
+            </h1>
+
+            <p class="result-subtitle">
+                The model's highest-scoring prediction for your
+                selected symptom pattern.
+            </p>
+
+            <div class="confidence-area">
+
+                <div class="confidence-number">
+                    {{ '%.1f'|format(assessment.confidence) }}%
+                </div>
+
+                <div class="confidence-label">
+                    Model score
+                </div>
+
+            </div>
+
+            <div class="result-progress">
+                <span
+                    style="width:{{ assessment.confidence }}%"
+                ></span>
+            </div>
+
+            <p class="result-note">
+                This score is an ML model estimate and is not a medical diagnosis.
+            </p>
+
+        </div>
+
+        <div class="result-visual">
+
+            <div class="result-orbit orbit-one"></div>
+            <div class="result-orbit orbit-two"></div>
+
+            <div class="result-brain">
+                🧠
+            </div>
+
+            <div class="result-check">
+                ✓
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TOP PREDICTIONS + INPUT
+    ========================== -->
+
+    <div class="result-grid">
+
+
+        <!-- TOP PREDICTIONS -->
+
+        <section class="result-card">
+
+            <div class="section-kicker">
+                MODEL OUTPUT
+            </div>
+
+            <div class="result-card-heading">
+
+                <div>
+                    <h2>
+                        Top predictions
+                    </h2>
+
+                    <p>
+                        Other high-scoring model outputs
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+            </div>
+
+
+            <div class="prediction-list">
+
+                {% for item in top %}
+
+                <div class="prediction-item">
+
+                    <div class="prediction-top">
+
+                        <span>
+                            {{ item.disease }}
+                        </span>
+
+                        <strong>
+                            {{ item.score }}%
+                        </strong>
+
+                    </div>
+
+                    <div class="prediction-bar">
+
+                        <span
+                            style="width:{{ item.score }}%"
+                        ></span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- INPUT SUMMARY -->
+
+        <section class="result-card">
+
+            <div class="section-kicker">
+                INPUT SUMMARY
+            </div>
+
+            <div class="result-card-heading">
+
+                <div>
+                    <h2>
+                        Your assessment
+                    </h2>
+
+                    <p>
+                        Information used for this screening
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    🩺
+                </div>
+
+            </div>
+
+
+            <div class="summary-list">
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+                        🌡️
+                    </div>
+
+                    <div>
+                        <small>
+                            Selected symptoms
+                        </small>
+
+                        <strong>
+                            {{ symptoms|join(', ') if symptoms else 'None selected' }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+                        🎂
+                    </div>
+
+                    <div>
+                        <small>
+                            Age
+                        </small>
+
+                        <strong>
+                            {{ profile['Age'] or 'Not provided' }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-icon">
+                        👤
+                    </div>
+
+                    <div>
+                        <small>
+                            Gender
+                        </small>
+
+                        <strong>
+                            {{ profile['Gender'] }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- =========================
+         EXPLAINABILITY + GUIDANCE
+    ========================== -->
+
+    <div class="result-grid result-grid-second">
+
+
+        <!-- EXPLAINABILITY -->
+
+        <section class="result-card">
+
+            <div class="section-kicker">
+                EXPLAINABILITY
+            </div>
+
+            <div class="result-card-heading">
+
+                <div>
+                    <h2>
+                        Model signals
+                    </h2>
+
+                    <p>
+                        Feature-importance signals among the selected symptoms
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    🧠
+                </div>
+
+            </div>
+
+
+            <div class="explain-note">
+                ℹ️ These signals show how the trained model weighs
+                features. They do not prove that a symptom causes a condition.
+            </div>
+
+
+            {% if signals %}
+
+                <div class="signal-list">
+
+                    {% for item in signals %}
+
+                    <div class="signal-item">
+
+                        <div class="signal-top">
+
+                            <span>
+                                {{ item.symptom|replace('_',' ')|title }}
+                            </span>
+
+                            <strong>
+                                {{ item.importance }}%
+                            </strong>
+
+                        </div>
+
+                        <div class="signal-bar">
+
+                            <span
+                                style="width:{{ [item.importance * 4, 100]|min }}%"
+                            ></span>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-result">
+                    <span>🔍</span>
+                    <p>
+                        Select symptoms to view model signals.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- GENERAL GUIDANCE -->
+
+        <section class="result-card">
+
+            <div class="section-kicker">
+                GENERAL GUIDANCE
+            </div>
+
+            <div class="result-card-heading">
+
+                <div>
+                    <h2>
+                        Next steps
+                    </h2>
+
+                    <p>
+                        General educational guidance
+                    </p>
+                </div>
+
+                <div class="card-icon">
+                    💡
+                </div>
+
+            </div>
+
+
+            <div class="tips-list">
+
+                {% for tip in tips %}
+
+                <div class="tip-item">
+
+                    <span class="tip-check">
+                        ✓
+                    </span>
+
+                    <p>
+                        {{ tip }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="specialist-box">
+
+                <div class="specialist-icon">
+                    👨‍⚕️
+                </div>
+
+                <div>
+
+                    <small>
+                        Suggested contact
+                    </small>
+
+                    <strong>
+                        {{ specialist }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- =========================
+         DISCLAIMER
+    ========================== -->
+
+    <section class="result-disclaimer">
+
+        <div class="disclaimer-icon">
+            ⚠️
+        </div>
+
+        <div>
+
+            <strong>
+                Important
+            </strong>
+
+            <p>
+                SwasthSathi is a college-level ML prototype.
+                The dataset and model are not clinically validated.
+                The displayed score is a model probability estimate
+                and must not be treated as a real-world diagnostic probability.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+
+    <div class="result-actions">
+
+        <a
+            class="btn btn-primary"
+            href="{{ url_for('assessment') }}"
+        >
+            🩺 New Assessment
+        </a>
+
+        <a
+            class="btn btn-soft"
+            href="{{ url_for('history') }}"
+        >
+            📋 View History
+        </a>
+
+        <button
+            class="btn btn-soft"
+            type="button"
+            onclick="window.print()"
+        >
+            🖨️ Print Result
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     RESULT PAGE STYLES
+========================== -->
+
+<style>
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.result-page {
+    padding-top: 28px;
+    padding-bottom: 60px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.result-hero {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 310px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 35px;
+
+    padding: 42px 48px;
+
+    margin-bottom: 22px;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(45,212,191,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(14,165,233,.16),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #083344,
+            #115e59
+        );
+
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.16);
+
+    color: white;
+
+    animation: resultEnter .65s ease both;
+}
+
+.result-content {
+    position: relative;
+    z-index: 3;
+
+    max-width: 760px;
+}
+
+.result-badge {
+    display: inline-flex;
+
+    padding: 7px 12px;
+
+    border: 1px solid rgba(255,255,255,.20);
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.08);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .6px;
+}
+
+.result-status {
+    display: inline-flex;
+
+    margin-left: 8px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: rgba(16,185,129,.16);
+
+    color: #a7f3d0;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.result-label {
+    margin: 25px 0 6px;
+
+    color: #99f6e4;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.result-hero h1 {
+    margin: 0;
+
+    font-size: clamp(32px, 5vw, 54px);
+
+    line-height: 1.08;
+
+    color: #ffffff;
+
+    text-transform: capitalize;
+}
+
+.result-subtitle {
+    margin: 12px 0 18px;
+
+    max-width: 650px;
+
+    color: #cde8e5;
+
+    line-height: 1.6;
+}
+
+.confidence-area {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.confidence-number {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.confidence-label {
+    color: #a7f3d0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.result-progress {
+    width: min(620px, 100%);
+
+    height: 9px;
+
+    margin-top: 10px;
+
+    overflow: hidden;
+
+    border-radius: 99px;
+
+    background: rgba(255,255,255,.18);
+}
+
+.result-progress span {
+    display: block;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #ffffff;
+
+    animation: progressGrow 1.1s ease both;
+}
+
+.result-note {
+    margin: 10px 0 0;
+
+    color: #b8ded9;
+
+    font-size: 11px;
+}
+
+
+/* HERO VISUAL */
+
+.result-visual {
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-brain {
+    position: relative;
+    z-index: 3;
+
+    width: 110px;
+    height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.12);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    font-size: 52px;
+
+    box-shadow:
+        0 0 50px rgba(94,234,212,.20);
+
+    animation: brainFloat 3s ease-in-out infinite;
+}
+
+.result-orbit {
+    position: absolute;
+
+    border: 1px solid rgba(153,246,228,.35);
+
+    border-radius: 50%;
+}
+
+.orbit-one {
+    width: 155px;
+    height: 155px;
+
+    animation: orbitPulse 2.5s ease-in-out infinite;
+}
+
+.orbit-two {
+    width: 200px;
+    height: 200px;
+
+    border-color: rgba(153,246,228,.16);
+
+    animation: orbitPulse 3s ease-in-out infinite reverse;
+}
+
+.result-check {
+    position: absolute;
+
+    z-index: 5;
+
+    right: 28px;
+    bottom: 30px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #10b981;
+
+    border: 4px solid #115e59;
+
+    color: white;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.20);
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.result-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, .85fr);
+
+    gap: 20px;
+}
+
+.result-grid-second {
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.result-card {
+    padding: 27px;
+
+    border-radius: 22px;
+
+    background: var(--card, #ffffff);
+
+    border: 1px solid rgba(15,23,42,.07);
+
+    box-shadow:
+        0 9px 28px rgba(15,23,42,.055);
+
+    animation: resultCardEnter .6s ease both;
+}
+
+.result-card:hover {
+    box-shadow:
+        0 14px 35px rgba(15,23,42,.075);
+}
+
+.section-kicker {
+    color: #0284c7;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.result-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 7px;
+    margin-bottom: 22px;
+}
+
+.result-card-heading h2 {
+    margin: 0 0 5px;
+
+    color: #0f172a;
+
+    font-size: 21px;
+}
+
+.result-card-heading p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.card-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #ecfeff
+        );
+
+    font-size: 19px;
+}
+
+
+/* =====================================================
+   PREDICTIONS
+===================================================== */
+
+.prediction-item {
+    margin-bottom: 17px;
+}
+
+.prediction-item:last-child {
+    margin-bottom: 0;
+}
+
+.prediction-top,
+.signal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 7px;
+}
+
+.prediction-top span,
+.signal-top span {
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.prediction-top strong,
+.signal-top strong {
+    color: #059669;
+
+    font-size: 13px;
+}
+
+.prediction-bar,
+.signal-bar {
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 99px;
+
+    background: #e8eef2;
+}
+
+.prediction-bar span {
+    display: block;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0ea5e9,
+            #14b8a6
+        );
+
+    animation: barGrow .8s ease both;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #edf2f5;
+}
+
+.summary-icon {
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    font-size: 17px;
+}
+
+.summary-item small {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.summary-item strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   EXPLAINABILITY
+===================================================== */
+
+.explain-note {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background: #f0fdfa;
+
+    border: 1px solid #ccfbf1;
+
+    color: #0f766e;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+.signal-item {
+    margin-bottom: 16px;
+}
+
+.signal-item:last-child {
+    margin-bottom: 0;
+}
+
+.signal-bar span {
+    display: block;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #14b8a6;
+
+    animation: barGrow .8s ease both;
+}
+
+.empty-result {
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+
+    color: #94a3b8;
+}
+
+.empty-result span {
+    font-size: 28px;
+}
+
+.empty-result p {
+    margin: 8px 0 0;
+}
+
+
+/* =====================================================
+   TIPS
+===================================================== */
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+.tip-check {
+    width: 23px;
+    height: 23px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 1px;
+
+    border-radius: 50%;
+
+    background: rgba(16,185,129,.10);
+
+    color: #059669;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.tip-item p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* SPECIALIST */
+
+.specialist-box {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 22px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdfa,
+            #f8fafc
+        );
+
+    border: 1px solid #dff6f1;
+}
+
+.specialist-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    font-size: 20px;
+}
+
+.specialist-box small {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    margin-bottom: 3px;
+}
+
+.specialist-box strong {
+    color: #334155;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   DISCLAIMER
+===================================================== */
+
+.result-disclaimer {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-top: 20px;
+
+    padding: 19px 21px;
+
+    border-radius: 17px;
+
+    background: #fffbeb;
+
+    border: 1px solid #fef3c7;
+
+    color: #92400e;
+
+    line-height: 1.6;
+
+    animation: resultCardEnter .7s ease both;
+}
+
+.disclaimer-icon {
+    font-size: 20px;
+}
+
+.result-disclaimer strong {
+    color: #b45309;
+
+    font-size: 13px;
+}
+
+.result-disclaimer p {
+    margin: 3px 0 0;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.result-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.result-actions .btn {
+    min-height: 46px;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+html[data-theme="dark"] .result-card {
+    background: #111827;
+
+    border-color: #334155;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+html[data-theme="dark"] .result-card-heading h2 {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .result-card-heading p {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .section-kicker {
+    color: #5eead4;
+}
+
+html[data-theme="dark"] .card-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #172554,
+            #163b3a
+        );
+}
+
+html[data-theme="dark"] .prediction-top span,
+html[data-theme="dark"] .signal-top span {
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .prediction-top strong,
+html[data-theme="dark"] .signal-top strong {
+    color: #6ee7b7;
+}
+
+html[data-theme="dark"] .prediction-bar,
+html[data-theme="dark"] .signal-bar {
+    background: #263449;
+}
+
+html[data-theme="dark"] .summary-item {
+    background: #172235;
+    border-color: #334155;
+}
+
+html[data-theme="dark"] .summary-icon {
+    background: #1e293b;
+}
+
+html[data-theme="dark"] .summary-item strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .summary-item small {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .explain-note {
+    background: #102a2a;
+    border-color: #24504d;
+    color: #99f6e4;
+}
+
+html[data-theme="dark"] .empty-result {
+    background: #172235;
+}
+
+html[data-theme="dark"] .tip-item p {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .tip-check {
+    background: rgba(16,185,129,.14);
+    color: #6ee7b7;
+}
+
+html[data-theme="dark"] .specialist-box {
+    background:
+        linear-gradient(
+            135deg,
+            #102a2a,
+            #172235
+        );
+
+    border-color: #334155;
+}
+
+html[data-theme="dark"] .specialist-icon {
+    background: #1e293b;
+}
+
+html[data-theme="dark"] .specialist-box strong {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .result-disclaimer {
+    background: #302713;
+    border-color: #66521d;
+    color: #fde68a;
+}
+
+html[data-theme="dark"] .result-disclaimer strong {
+    color: #fbbf24;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes resultEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes resultCardEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes progressGrow {
+
+    from {
+        width: 0;
+    }
+
+}
+
+@keyframes barGrow {
+
+    from {
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    to {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+}
+
+@keyframes brainFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+@keyframes orbitPulse {
+
+    0%, 100% {
+        transform: scale(1);
+        opacity: .55;
+    }
+
+    50% {
+        transform: scale(1.06);
+        opacity: .9;
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .result-hero {
+        padding: 32px;
+
+    }
+
+    .result-visual {
+        width: 150px;
+        height: 150px;
+    }
+
+    .result-brain {
+        width: 85px;
+        height: 85px;
+
+        font-size: 40px;
+    }
+
+    .orbit-one {
+        width: 120px;
+        height: 120px;
+    }
+
+    .orbit-two {
+        width: 150px;
+        height: 150px;
+    }
+
+    .result-check {
+        right: 10px;
+        bottom: 10px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .result-page {
+        padding-top: 18px;
+    }
+
+    .result-hero {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 28px;
+
+        min-height: auto;
+    }
+
+    .result-visual {
+        align-self: center;
+    }
+
+    .result-status {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-card {
+        padding: 22px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .result-hero {
+        border-radius: 20px;
+        padding: 23px;
+    }
+
+    .result-hero h1 {
+        font-size: 32px;
+    }
+
+    .result-card {
+        border-radius: 18px;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .result-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print {
+
+    .nav,
+    .footer,
+    .theme-toggle,
+    .result-actions {
+        display: none !important;
+    }
+
+    .result-page {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .result-hero {
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .result-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .result-disclaimer {
+        break-inside: avoid;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*
+     * Small entrance effect for result bars.
+     * Prediction values themselves still come
+     * directly from the existing Flask backend.
+     */
+
+    const bars =
+        document.querySelectorAll(
+            ".prediction-bar span, .signal-bar span"
+        );
+
+    bars.forEach(function (bar, index) {
+
+        bar.style.animationDelay =
+            (index * 0.08) + "s";
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

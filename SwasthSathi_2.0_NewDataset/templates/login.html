@@ -1,0 +1,6 @@
+
+{% extends "base.html" %}{% block title %}Login · SwasthSathi{% endblock %}{% block content %}
+<div class="auth"><div class="auth-card"><div style="text-align:center"><div class="logo" style="margin:auto">✚</div><h1>Welcome back</h1><p class="muted">Enter your details to start the assessment.</p></div>
+<form method="post"><div class="field"><label>Name (optional)</label><input name="name" placeholder="Your name"></div><div class="field"><label>Email</label><input type="email" name="email" placeholder="you@example.com" required></div><button class="btn btn-primary" style="width:100%">Continue with OTP →</button></form>
+<p class="muted" style="font-size:12px;margin-top:18px">College demo mode: OTP is <b>123456</b>.</p></div></div>
+{% endblock %}
